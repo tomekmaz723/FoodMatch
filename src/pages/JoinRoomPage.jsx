@@ -1,5 +1,7 @@
+import { useNavigate } from 'react-router-dom';
 import PinInput from '../components/PinInput/PinInput';
 import InputField from '../components/InputField/InputField';
+import Button from '../components/Button/Button';
 import styles from './JoinRoomPage.module.css';
 
 /* Person icon for the nickname field */
@@ -10,15 +12,26 @@ const PersonIcon = () => (
   </svg>
 );
 
+const BackArrow = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M19 12H5M12 19l-7-7 7-7"/>
+  </svg>
+);
+
 /**
  * JoinRoomPage — screen where a user enters a 4-digit PIN
  * and a nickname to join an existing room.
  */
 function JoinRoomPage() {
+  const navigate = useNavigate();
+
   return (
     <main className={styles.page}>
       {/* ── Hero thumbnail ── */}
       <div className={styles.heroThumb} aria-hidden="true">
+        <button className={styles.backBtn} aria-label="Go back" onClick={() => navigate(-1)}>
+          <BackArrow />
+        </button>
         <img
           className={styles.heroImage}
           src="/hero_food.png"
@@ -43,6 +56,10 @@ function JoinRoomPage() {
           placeholder="e.g. FoodieKing"
           icon={<PersonIcon />}
         />
+        
+        <div className={styles.actions} style={{ marginTop: '24px' }}>
+          <Button variant="filled" onClick={() => navigate('/waiting')}>Join Room</Button>
+        </div>
       </section>
     </main>
   );

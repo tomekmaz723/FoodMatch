@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import AppLogo from '../components/AppLogo/AppLogo';
 import Button from '../components/Button/Button';
 import styles from './LoginPage.module.css';
@@ -35,6 +36,8 @@ const CreateIcon = () => (
  *  4. Footer auth links
  */
 function LoginPage() {
+  const navigate = useNavigate();
+
   return (
     <main className={styles.page}>
       {/* ── Hero image ── */}
@@ -52,10 +55,10 @@ function LoginPage() {
         <AppLogo />
 
         <div className={styles.actions}>
-          <Button variant="filled" icon={<JoinIcon />}>
+          <Button variant="filled" icon={<JoinIcon />} onClick={() => navigate('/join')}>
             Join a Room
           </Button>
-          <Button variant="outlined" icon={<CreateIcon />}>
+          <Button variant="outlined" icon={<CreateIcon />} onClick={() => navigate('/lobby')}>
             Create a Room
           </Button>
         </div>
@@ -63,13 +66,13 @@ function LoginPage() {
         <footer className={styles.footer}>
           <p className={styles.footerText}>
             Already a member?{' '}
-            <a href="#login" className={styles.footerLink}>
+            <span className={styles.footerLink} onClick={() => navigate('/auth/login')} style={{cursor: 'pointer'}}>
               Log In
-            </a>
+            </span>
           </p>
-          <a href="#signup" className={styles.signUpLink}>
+          <span className={styles.signUpLink} onClick={() => navigate('/auth/signup')} style={{cursor: 'pointer'}}>
             New here? Sign up →
-          </a>
+          </span>
         </footer>
       </section>
     </main>

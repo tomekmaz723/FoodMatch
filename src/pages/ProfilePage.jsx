@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import NavBar from '../components/NavBar/NavBar';
 import styles from './ProfilePage.module.css';
 
@@ -63,6 +64,8 @@ const LogoutIcon = () => (
 );
 
 function ProfilePage() {
+  const navigate = useNavigate();
+
   return (
     <main className={styles.page}>
       <section className={styles.heroSection}>
@@ -135,7 +138,7 @@ function ProfilePage() {
           </button>
         </div>
 
-        <button className={styles.logoutBtn}>
+        <button className={styles.logoutBtn} onClick={() => navigate('/')}>
           <LogoutIcon />
           Log Out
         </button>

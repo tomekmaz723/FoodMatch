@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import Button from '../components/Button/Button';
 import styles from './MatchResultPage.module.css';
 
@@ -54,11 +55,13 @@ const initials = [
  * MatchResultPage — shown when all group members agree on a restaurant.
  */
 function MatchResultPage() {
+  const navigate = useNavigate();
+
   return (
     <main className={styles.page}>
       {/* ── Header ── */}
       <header className={styles.header}>
-        <button className={styles.backBtn} aria-label="Go back">
+        <button className={styles.backBtn} aria-label="Go back" onClick={() => navigate(-1)}>
           <BackArrow />
         </button>
         <h1 className={styles.headerTitle}>Room PIN: 8821</h1>
@@ -117,10 +120,10 @@ function MatchResultPage() {
 
         {/* ── Action buttons ── */}
         <div className={styles.actions}>
-          <Button variant="filled" icon={<InfoIcon />}>
+          <Button variant="filled" icon={<InfoIcon />} onClick={() => navigate('/restaurant')}>
             View Details
           </Button>
-          <Button variant="outlined" icon={<MapIcon />}>
+          <Button variant="outlined" icon={<MapIcon />} onClick={() => navigate('/')}>
             Open in Maps
           </Button>
         </div>

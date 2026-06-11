@@ -1,5 +1,7 @@
+import { useNavigate } from 'react-router-dom';
 import Avatar from '../components/Avatar/Avatar';
 import NavBar from '../components/NavBar/NavBar';
+import Button from '../components/Button/Button';
 import styles from './WaitingRoomPage.module.css';
 
 /* ═══════════════════════════════════
@@ -59,11 +61,13 @@ const friends = [
  * Shows room PIN, joined participants, and a waiting-for-host status.
  */
 function WaitingRoomPage() {
+  const navigate = useNavigate();
+
   return (
     <main className={styles.page}>
       {/* ── Top header ── */}
       <header className={styles.header}>
-        <button className={styles.backBtn} aria-label="Go back">
+        <button className={styles.backBtn} aria-label="Go back" onClick={() => navigate(-1)}>
           <BackArrow />
         </button>
         <h1 className={styles.headerTitle}>Room PIN: 8821</h1>
@@ -153,6 +157,11 @@ function WaitingRoomPage() {
             <span className={styles.readyText}>Ready to Decide</span>
           </div>
         </section>
+        
+        {/* Prototype button for presentation to move forward */}
+        <div style={{ marginTop: '16px' }}>
+          <Button variant="filled" onClick={() => navigate('/swipe')}>Start Swiping</Button>
+        </div>
       </div>
 
       {/* ── Bottom navigation ── */}

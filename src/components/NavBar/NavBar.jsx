@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import styles from './NavBar.module.css';
 
 /* ── Tab icon SVGs ── */
@@ -30,10 +31,10 @@ const ProfileIcon = () => (
 );
 
 const tabs = [
-  { id: 'home',      label: 'Home',      icon: <HomeIcon /> },
-  { id: 'history',   label: 'History',   icon: <HistoryIcon /> },
-  { id: 'favorites', label: 'Favorites', icon: <FavoritesIcon /> },
-  { id: 'profile',   label: 'Profile',   icon: <ProfileIcon /> },
+  { id: 'home',      label: 'Home',      path: '/',          icon: <HomeIcon /> },
+  { id: 'history',   label: 'History',   path: '/history',   icon: <HistoryIcon /> },
+  { id: 'favorites', label: 'Favorites', path: '/favorites', icon: <FavoritesIcon /> },
+  { id: 'profile',   label: 'Profile',   path: '/profile',   icon: <ProfileIcon /> },
 ];
 
 /**
@@ -42,6 +43,8 @@ const tabs = [
  * @param {string} activeTab – currently active tab id
  */
 function NavBar({ activeTab = 'home' }) {
+  const navigate = useNavigate();
+
   return (
     <nav className={styles.nav} aria-label="Main navigation">
       {tabs.map((tab) => {
@@ -51,7 +54,12 @@ function NavBar({ activeTab = 'home' }) {
           .join(' ');
 
         return (
-          <button key={tab.id} className={tabClass} aria-current={isActive ? 'page' : undefined}>
+          <button 
+            key={tab.id} 
+            className={tabClass} 
+            aria-current={isActive ? 'page' : undefined}
+            onClick={() => navigate(tab.path)}
+          >
             <span className={styles.iconWrap}>{tab.icon}</span>
             <span className={styles.label}>{tab.label}</span>
           </button>

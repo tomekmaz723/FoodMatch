@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import Button from '../components/Button/Button';
 import NavBar from '../components/NavBar/NavBar';
 import styles from './NoMatchPage.module.css';
@@ -69,11 +70,13 @@ const initials = [
  * Displays the group's top-voted restaurant as a fallback.
  */
 function NoMatchPage() {
+  const navigate = useNavigate();
+
   return (
     <main className={styles.page}>
       {/* ── Header ── */}
       <header className={styles.header}>
-        <button className={styles.backBtn} aria-label="Go back">
+        <button className={styles.backBtn} aria-label="Go back" onClick={() => navigate(-1)}>
           <BackArrow />
         </button>
         <h1 className={styles.headerTitle}>Room PIN: 8821</h1>
@@ -135,12 +138,12 @@ function NoMatchPage() {
           </div>
         </article>
 
-        {/* ── Actions ── */}
+        {/* ── Action buttons ── */}
         <div className={styles.actions}>
-          <Button variant="filled" icon={<CheckIcon />}>
+          <Button variant="filled" onClick={() => navigate('/restaurant')}>
             Choose this anyway
           </Button>
-          <Button variant="outlined" icon={<RefreshIcon />}>
+          <Button variant="outlined" onClick={() => navigate('/lobby')}>
             Start New Round
           </Button>
         </div>

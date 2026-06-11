@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import NavBar from '../components/NavBar/NavBar';
 import styles from './HistoryPage.module.css';
 
@@ -56,10 +57,12 @@ const matches = [
 ];
 
 function HistoryPage() {
+  const navigate = useNavigate();
+
   return (
     <main className={styles.page}>
       <header className={styles.header}>
-        <button className={styles.backBtn} aria-label="Go back">
+        <button className={styles.backBtn} aria-label="Go back" onClick={() => navigate(-1)}>
           <BackArrow />
         </button>
         <h1 className={styles.headerTitle}>History</h1>

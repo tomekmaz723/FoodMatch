@@ -1,7 +1,41 @@
+import { Routes, Route } from 'react-router-dom';
+import LoginPage from './pages/LoginPage';
+import AuthLoginPage from './pages/AuthLoginPage';
+import SignupPage from './pages/SignupPage';
+import LobbyPage from './pages/LobbyPage';
+import JoinRoomPage from './pages/JoinRoomPage';
+import WaitingRoomPage from './pages/WaitingRoomPage';
+import SwipePage from './pages/SwipePage';
+import MatchResultPage from './pages/MatchResultPage';
+import NoMatchPage from './pages/NoMatchPage';
+import RestaurantDetailPage from './pages/RestaurantDetailPage';
+import FavoritesPage from './pages/FavoritesPage';
 import ProfilePage from './pages/ProfilePage';
+import HistoryPage from './pages/HistoryPage';
 
 function App() {
-  return <ProfilePage />;
+  return (
+    <Routes>
+      {/* Auth & Landing */}
+      <Route path="/" element={<LoginPage />} />
+      <Route path="/auth/login" element={<AuthLoginPage />} />
+      <Route path="/auth/signup" element={<SignupPage />} />
+      
+      {/* Core Flow */}
+      <Route path="/lobby" element={<LobbyPage />} />
+      <Route path="/join" element={<JoinRoomPage />} />
+      <Route path="/waiting" element={<WaitingRoomPage />} />
+      <Route path="/swipe" element={<SwipePage />} />
+      <Route path="/result" element={<MatchResultPage />} />
+      <Route path="/nomatch" element={<NoMatchPage />} />
+      <Route path="/restaurant" element={<RestaurantDetailPage />} />
+      
+      {/* User Pages */}
+      <Route path="/favorites" element={<FavoritesPage />} />
+      <Route path="/profile" element={<ProfilePage />} />
+      <Route path="/history" element={<HistoryPage />} />
+    </Routes>
+  );
 }
 
 export default App;

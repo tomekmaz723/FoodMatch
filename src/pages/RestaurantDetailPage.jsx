@@ -1,3 +1,6 @@
+import { useNavigate } from 'react-router-dom';
+import Button from '../components/Button/Button';
+import NavBar from '../components/NavBar/NavBar';
 import styles from './RestaurantDetailPage.module.css';
 
 /* ═══════════════════════════════════
@@ -94,11 +97,13 @@ const CalendarIcon = () => (
  * RestaurantDetailPage — Detailed view of a restaurant.
  */
 function RestaurantDetailPage() {
+  const navigate = useNavigate();
+
   return (
     <main className={styles.page}>
       {/* ── Header (Overlaid) ── */}
       <header className={styles.header}>
-        <button className={styles.backBtn} aria-label="Go back">
+        <button className={styles.backBtn} aria-label="Go back" onClick={() => navigate(-1)}>
           <BackArrow />
         </button>
         <h1 className={styles.headerTitle}>Room PIN: 8821</h1>

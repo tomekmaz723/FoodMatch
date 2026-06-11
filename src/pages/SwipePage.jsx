@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import RestaurantCard from '../components/RestaurantCard/RestaurantCard';
 import NavBar from '../components/NavBar/NavBar';
 import styles from './SwipePage.module.css';
@@ -53,11 +54,13 @@ const miniAvatars = [
  * Shows one restaurant card at a time with reject / super-like / like actions.
  */
 function SwipePage() {
+  const navigate = useNavigate();
+
   return (
     <main className={styles.page}>
       {/* ── Header ── */}
       <header className={styles.header}>
-        <button className={styles.backBtn} aria-label="Go back">
+        <button className={styles.backBtn} aria-label="Go back" onClick={() => navigate(-1)}>
           <BackArrow />
         </button>
         <h1 className={styles.headerTitle}>Room PIN: 8821</h1>
@@ -89,13 +92,13 @@ function SwipePage() {
 
         {/* ── Action buttons ── */}
         <div className={styles.actions}>
-          <button className={`${styles.actionBtn} ${styles.reject}`} aria-label="Reject">
+          <button className={`${styles.actionBtn} ${styles.reject}`} aria-label="Reject" onClick={() => navigate('/nomatch')}>
             <XIcon />
           </button>
-          <button className={`${styles.actionBtn} ${styles.superLike}`} aria-label="Super like">
+          <button className={`${styles.actionBtn} ${styles.superLike}`} aria-label="Super like" onClick={() => navigate('/result')}>
             <StarIcon />
           </button>
-          <button className={`${styles.actionBtn} ${styles.like}`} aria-label="Like">
+          <button className={`${styles.actionBtn} ${styles.like}`} aria-label="Like" onClick={() => navigate('/result')}>
             <HeartIcon />
           </button>
         </div>

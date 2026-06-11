@@ -1,5 +1,7 @@
+import { useNavigate } from 'react-router-dom';
 import Avatar from '../components/Avatar/Avatar';
 import Chip from '../components/Chip/Chip';
+import Button from '../components/Button/Button';
 import StatCard from '../components/StatCard/StatCard';
 import styles from './LobbyPage.module.css';
 
@@ -38,6 +40,8 @@ const friends = [
  * and waits for participants before starting.
  */
 function LobbyPage() {
+  const navigate = useNavigate();
+
   return (
     <main className={styles.page}>
       {/* ── Banner ── */}
@@ -130,6 +134,12 @@ function LobbyPage() {
           accent="cyan"
           icon={<PinIcon />}
         />
+      </div>
+
+      <div style={{ padding: '0 24px 24px' }}>
+        <Button variant="filled" onClick={() => navigate('/waiting')}>
+          Start Room
+        </Button>
       </div>
     </main>
   );

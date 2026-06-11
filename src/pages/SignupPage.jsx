@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import styles from './SignupPage.module.css';
 
 /* Icons */
@@ -50,6 +51,8 @@ const ArrowRight = () => (
 );
 
 function SignupPage() {
+  const navigate = useNavigate();
+
   return (
     <main className={styles.page}>
       <section className={styles.heroSection}>
@@ -107,12 +110,12 @@ function SignupPage() {
           </div>
         </div>
 
-        <button className={styles.submitBtn}>
+        <button className={styles.submitBtn} onClick={() => navigate('/')}>
           Sign Up <ArrowRight />
         </button>
 
         <p className={styles.footerLink}>
-          Already have an account? <span className={styles.loginText}>Log in</span>
+          Already have an account? <span className={styles.loginText} onClick={() => navigate('/auth/login')} style={{cursor: 'pointer'}}>Log in</span>
         </p>
       </div>
     </main>
