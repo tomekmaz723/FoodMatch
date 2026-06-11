@@ -1,0 +1,47 @@
+.card {
+  flex: 1;
+  background: #1e1e1e;
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  min-height: 110px;
+}
+
+.label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  line-height: 1.3;
+  max-width: 80%;
+}
+
+.value {
+  font-size: 2.2rem;
+  font-weight: 800;
+  line-height: 1;
+  margin-top: 8px;
+}
+
+.amber {
+  color: var(--color-amber);
+}
+
+.cyan {
+  color: #5ec6d0;
+}
+
+.iconFloat {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  opacity: 0.7;
+}
+
+.iconFloat svg {
+  width: 28px;
+  height: 28px;
+}

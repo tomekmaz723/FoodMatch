@@ -1,0 +1,109 @@
+.card {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: #1e1a14;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Food image ── */
+.imageWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Gradient overlay for text readability */
+.imageOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 40%,
+    rgba(0, 0, 0, 0.85) 100%
+  );
+  pointer-events: none;
+}
+
+/* ── Info layer (over the gradient) ── */
+.info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.name {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.15;
+}
+
+/* ── Meta row: rating · price · distance ── */
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--color-amber);
+}
+
+.ratingStar {
+  width: 15px;
+  height: 15px;
+}
+
+.price {
+  color: var(--color-text-primary);
+}
+
+.distance {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  color: var(--color-text-primary);
+}
+
+.distance svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* ── Tag chips ── */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.tag {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: #e0dbd4;
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.06);
+}

@@ -1,0 +1,58 @@
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px 8px 14px;
+  background: #1e1a14;
+  border-top: 1px solid #2e2922;
+}
+
+.tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  min-width: 56px;
+}
+
+.iconWrap {
+  width: 40px;
+  height: 36px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease;
+}
+
+.iconWrap svg {
+  width: 22px;
+  height: 22px;
+  color: #6b6359;
+  transition: color 0.15s ease;
+}
+
+.label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #6b6359;
+  font-family: var(--font-family);
+  transition: color 0.15s ease;
+}
+
+/* ── Active tab ── */
+.active .iconWrap {
+  background: var(--color-amber);
+}
+
+.active .iconWrap svg {
+  color: #1a1200;
+}
+
+.active .label {
+  color: var(--color-amber);
+}

@@ -1,0 +1,183 @@
+.page {
+  min-height: 100dvh;
+  background: #f0ece6;
+  max-width: 480px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 12px 16px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* ═══════════════════════════════════
+   Banner
+   ═══════════════════════════════════ */
+.banner {
+  background: linear-gradient(to bottom, #d8d3cc 0%, #3a3632 55%, #1a1a1a 100%);
+  border-radius: var(--radius-lg);
+  padding: 52px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.bannerLabel {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-amber);
+}
+
+.bannerTitle {
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.15;
+}
+
+/* ═══════════════════════════════════
+   Friends in Room
+   ═══════════════════════════════════ */
+.friendsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.friendsHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.friendsTitle {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--color-amber);
+}
+
+.onlineBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #2a2a2a;
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+}
+
+.avatarsRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+/* ── Invite button (dashed circle) ── */
+.inviteWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.inviteCircle {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 2px dashed var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.inviteCircle:hover {
+  border-color: var(--color-amber);
+}
+
+.inviteCircle svg {
+  width: 22px;
+  height: 22px;
+  color: var(--color-text-muted);
+}
+
+.inviteLabel {
+  font-size: 0.7rem;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+/* ═══════════════════════════════════
+   Room Preferences Card
+   ═══════════════════════════════════ */
+.preferencesCard {
+  background: #1e1e1e;
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.preferencesTitle {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.prefGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.prefLabel {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #d4cfc7;
+}
+
+.chipRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ── Saved prefs checkbox ── */
+.checkboxRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  border: 1.5px solid #4a4a4a;
+  background: transparent;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.checkboxText {
+  font-size: 0.82rem;
+  color: var(--color-text-secondary);
+}
+
+/* ═══════════════════════════════════
+   Stats Row
+   ═══════════════════════════════════ */
+.statsRow {
+  display: flex;
+  gap: 12px;
+}

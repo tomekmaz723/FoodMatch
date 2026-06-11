@@ -1,0 +1,284 @@
+.page {
+  min-height: 100dvh;
+  background: #181410;
+  max-width: 480px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.body {
+  flex: 1;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* ═══════════════════════════════════
+   Top header bar
+   ═══════════════════════════════════ */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px 6px;
+}
+
+.backBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.backBtn svg {
+  width: 22px;
+  height: 22px;
+  color: var(--color-amber);
+}
+
+.headerTitle {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  color: var(--color-amber);
+}
+
+.headerRight svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* ═══════════════════════════════════
+   Subtitle
+   ═══════════════════════════════════ */
+.subtitleGroup {
+  text-align: center;
+}
+
+.subtitleLine {
+  font-size: 0.88rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+/* ═══════════════════════════════════
+   PIN display card
+   ═══════════════════════════════════ */
+.pinCard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  background: #2a2420;
+  border-radius: var(--radius-md);
+  padding: 18px 24px;
+  border: 1px solid #3a3530;
+}
+
+.pinDigits {
+  display: flex;
+  gap: 16px;
+}
+
+.digit {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-amber);
+  font-family: var(--font-family);
+}
+
+.copyBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+.copyBtn svg {
+  width: 22px;
+  height: 22px;
+  color: var(--color-amber);
+}
+
+/* ═══════════════════════════════════
+   Squad section
+   ═══════════════════════════════════ */
+.squadSection {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.squadHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.squadTitle {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.joinedBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  background: #2a2420;
+  border: 1px solid #3a3530;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+}
+
+.avatarsRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+/* ── Invite button (person+ icon in dashed circle) ── */
+.inviteWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.inviteCircle {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 2px dashed var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.inviteCircle:hover {
+  border-color: var(--color-amber);
+}
+
+.inviteCircle svg {
+  width: 24px;
+  height: 24px;
+  color: var(--color-text-muted);
+}
+
+.inviteLabel {
+  font-size: 0.7rem;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+/* ═══════════════════════════════════
+   Status card
+   ═══════════════════════════════════ */
+.statusCard {
+  background: #221e18;
+  border: 1px solid #3a3530;
+  border-radius: var(--radius-lg);
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  flex: 1;
+}
+
+/* ── Crossed-utensils icon with arc ring ── */
+.statusIconWrap {
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+.statusRingSvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.statusIconInner {
+  position: absolute;
+  inset: 10px;
+  background: #1a1610;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.statusIconInner svg {
+  width: 38px;
+  height: 38px;
+  color: var(--color-amber);
+}
+
+.statusTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.statusSubtitle {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  text-align: center;
+  line-height: 1.5;
+  max-width: 260px;
+}
+
+/* ── READY TO DECIDE pill ── */
+.readyBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border: 1.5px solid var(--color-amber);
+  border-radius: var(--radius-full);
+  background: transparent;
+  cursor: default;
+}
+
+.readyDot {
+  width: 8px;
+  height: 8px;
+  background: var(--color-amber);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.readyText {
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-amber);
+  font-family: var(--font-family);
+}

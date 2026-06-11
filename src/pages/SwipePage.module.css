@@ -1,0 +1,164 @@
+.page {
+  min-height: 100dvh;
+  background: #181410;
+  max-width: 480px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.body {
+  flex: 1;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ═══════════════════════════════════
+   Header
+   ═══════════════════════════════════ */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px 0;
+}
+
+.backBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.backBtn svg {
+  width: 22px;
+  height: 22px;
+  color: var(--color-amber);
+}
+
+.headerTitle {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  color: var(--color-amber);
+}
+
+.headerRight svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* ═══════════════════════════════════
+   Sub-header: mini avatars + "swiping"
+   ═══════════════════════════════════ */
+.subheader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding-bottom: 4px;
+}
+
+.miniAvatars {
+  display: flex;
+  align-items: center;
+}
+
+.miniAvatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid #181410;
+  object-fit: cover;
+  display: block;
+}
+
+.miniAvatar + .miniAvatar {
+  margin-left: -8px;
+}
+
+.swipingText {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+/* ═══════════════════════════════════
+   Swipe action buttons
+   ═══════════════════════════════════ */
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  padding: 8px 0;
+}
+
+.actionBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.15s ease;
+}
+
+.actionBtn:active {
+  transform: scale(0.92);
+}
+
+/* Reject (X) */
+.reject {
+  width: 54px;
+  height: 54px;
+  background: #2e2922;
+}
+
+.reject svg {
+  width: 24px;
+  height: 24px;
+  color: #e05555;
+}
+
+/* Super-like (★) — larger */
+.superLike {
+  width: 72px;
+  height: 72px;
+  background: var(--color-amber);
+  box-shadow: 0 4px 20px rgba(245, 166, 35, 0.3);
+}
+
+.superLike svg {
+  width: 32px;
+  height: 32px;
+  color: #1a1200;
+}
+
+/* Like (♥) */
+.like {
+  width: 54px;
+  height: 54px;
+  background: #2e2922;
+}
+
+.like svg {
+  width: 24px;
+  height: 24px;
+  color: #e8954a;
+}

@@ -1,0 +1,41 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-amber);
+}
+
+.boxes {
+  display: flex;
+  gap: 14px;
+}
+
+.box {
+  width: 72px;
+  height: 60px;
+  border-radius: 14px;
+  border: 1.5px solid #4a4038;
+  background: #28221b;
+  color: var(--color-text-primary);
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-family: var(--font-family);
+  text-align: center;
+  caret-color: var(--color-amber);
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.box::placeholder {
+  color: #5e5549;
+  font-weight: 400;
+}
+
+.box:focus {
+  border-color: var(--color-amber);
+}

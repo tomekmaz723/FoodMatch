@@ -1,0 +1,276 @@
+.page {
+  min-height: 100dvh;
+  background: #181410;
+  max-width: 480px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 80px;
+}
+
+/* ═══════════════════════════════════
+   Hero Section & Header
+   ═══════════════════════════════════ */
+.heroSection {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 24px;
+}
+
+.heroBg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.heroOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 220px;
+  background: linear-gradient(to bottom, rgba(24, 20, 16, 0.4) 0%, #181410 100%);
+  z-index: 2;
+}
+
+.header {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+}
+
+.logoWrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--color-amber);
+}
+
+.logoWrap svg {
+  width: 20px;
+  height: 20px;
+}
+
+.smallAvatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--color-amber);
+}
+
+/* Main Profile Info */
+.profileInfo {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.avatarWrap {
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.mainAvatar {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--color-amber);
+}
+
+.editBtn {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--color-amber);
+  border: 2px solid #181410;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1a1200;
+  cursor: pointer;
+}
+
+.editBtn svg {
+  width: 14px;
+  height: 14px;
+}
+
+.name {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.username {
+  font-size: 0.9rem;
+  color: #a09585;
+  margin-top: 2px;
+}
+
+/* ═══════════════════════════════════
+   Stats
+   ═══════════════════════════════════ */
+.statsRow {
+  display: flex;
+  gap: 12px;
+  padding: 0 20px;
+  margin-bottom: 24px;
+}
+
+.statCard {
+  flex: 1;
+  background: #1e1a14;
+  border: 1px solid #2e2922;
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.statNum {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-amber);
+}
+
+.statLabel {
+  font-size: 0.75rem;
+  color: #c0b5a5;
+  font-weight: 500;
+}
+
+/* ═══════════════════════════════════
+   Sections
+   ═══════════════════════════════════ */
+.sectionContainer {
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sectionTitle {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #8a8275;
+  text-transform: uppercase;
+  margin-bottom: -8px;
+}
+
+.menuCard {
+  background: #1e1a14;
+  border: 1px solid #2e2922;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  color: #e0d5c5;
+  cursor: pointer;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+}
+
+.menuItem:not(:last-child) {
+  border-bottom: 1px solid #2e2922;
+}
+
+.menuIcon {
+  width: 20px;
+  height: 20px;
+  margin-right: 12px;
+  color: #c0b5a5;
+}
+
+.menuText {
+  flex: 1;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.menuChevron {
+  width: 18px;
+  height: 18px;
+  color: #8a8275;
+}
+
+/* Dietary specific */
+.dietaryContent {
+  padding: 0 16px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.dietTag {
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: #2a241e;
+  color: #a09585;
+}
+
+.dietTag.active {
+  background: var(--color-amber);
+  color: #1a1200;
+}
+
+.dietTag.add {
+  background: none;
+  border: 1px dashed #4a4235;
+  color: #c0b5a5;
+  cursor: pointer;
+}
+
+/* Log out */
+.logoutBtn {
+  width: 100%;
+  background: #1e1a14;
+  border: 1px solid #2e2922;
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #df9a9a; /* slightly reddish tint for logout */
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.logoutBtn svg {
+  width: 20px;
+  height: 20px;
+}
