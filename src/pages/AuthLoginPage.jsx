@@ -1,17 +1,12 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import BrandLogo from '../components/BrandLogo/BrandLogo';
 import NavBar from '../components/NavBar/NavBar';
 import { useAuth } from '../context/AuthContext';
 import MobileLayout from '../layouts/MobileLayout';
 import styles from './AuthLoginPage.module.css';
 
 /* Icons */
-const ForkKnifeIcon = () => (
-  <svg viewBox="0 0 24 24" fill="currentColor">
-    <path d="M11 2v9a3 3 0 0 1-2 2v9H7v-9a3 3 0 0 1-2-2V2h1.5v7a1.5 1.5 0 0 0 3 0V2H11zM19 2h-1v10.5A2.5 2.5 0 0 1 15.5 15H15v7h-2v-7h-.5A2.5 2.5 0 0 1 10 12.5V2h1.5v10.5a1 1 0 0 0 1 1h.5v-10h1.5v10h.5a1 1 0 0 0 1-1V2H19z" />
-  </svg>
-);
-
 const MailIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
@@ -138,16 +133,17 @@ function AuthLoginPage() {
 
         <header className={styles.header}>
           <div className={styles.logoWrap}>
-            <ForkKnifeIcon />
-            <span>FoodMatch</span>
+            <BrandLogo variant="compact" />
           </div>
         </header>
 
         <div className={styles.heroContent}>
           <div className={styles.bigLogoBox}>
-            <ForkKnifeIcon />
+            <BrandLogo variant="markOnly" showText={false} />
           </div>
-          <h1 className={styles.title}>FoodMatch</h1>
+          <h1 className={styles.title}>
+            Food<span>Match</span>
+          </h1>
           <p className={styles.subtitle}>
             Discover your next favorite meal with friends, faster.
           </p>

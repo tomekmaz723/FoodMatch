@@ -45,15 +45,6 @@
 .logoWrap {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--color-amber);
-}
-
-.logoWrap svg {
-  width: 22px;
-  height: 22px;
 }
 
 /* Big Hero Logo */
@@ -70,28 +61,29 @@
 }
 
 .bigLogoBox {
-  width: 72px;
-  height: 72px;
-  background: var(--color-amber);
-  border-radius: 16px;
+  width: 86px;
+  height: 86px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .bigLogoBox svg {
-  width: 36px;
-  height: 36px;
-  color: #1a1200;
+  width: 86px;
+  height: 86px;
 }
 
 .title {
   font-size: 2.5rem;
   font-weight: 800;
-  color: var(--color-amber);
+  color: #ffffff;
   margin-bottom: 8px;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
+}
+
+.title span {
+  color: var(--color-amber);
 }
 
 .subtitle {

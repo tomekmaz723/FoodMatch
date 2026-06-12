@@ -49,15 +49,6 @@
 .logoWrap {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: var(--color-amber);
-}
-
-.logoWrap svg {
-  width: 20px;
-  height: 20px;
 }
 
 .smallAvatar {

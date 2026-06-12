@@ -1,12 +1,7 @@
 import { useNavigate } from 'react-router-dom';
+import BrandLogo from '../BrandLogo/BrandLogo';
 import { useAuth } from '../../context/AuthContext';
 import styles from './ScreenHeader.module.css';
-
-const ForkKnifeIcon = () => (
-  <svg viewBox="0 0 24 24" fill="currentColor">
-    <path d="M11 2v9a3 3 0 0 1-2 2v9H7v-9a3 3 0 0 1-2-2V2h1.5v7a1.5 1.5 0 0 0 3 0V2H11zM19 2h-1v10.5A2.5 2.5 0 0 1 15.5 15H15v7h-2v-7h-.5A2.5 2.5 0 0 1 10 12.5V2h1.5v10.5a1 1 0 0 0 1 1h.5v-10h1.5v10h.5a1 1 0 0 0 1-1V2H19z" />
-  </svg>
-);
 
 export const PeopleIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -35,10 +30,7 @@ function ScreenHeader({
   return (
     <header className={headerClass}>
       <button className={styles.brandBtn} type="button" onClick={() => navigate('/')} aria-label="Go to FoodMatch home">
-        <span className={styles.logoMark}>
-          <ForkKnifeIcon />
-        </span>
-        <span className={styles.brandName}>FoodMatch</span>
+        <BrandLogo variant="compact" />
       </button>
 
       {title ? (

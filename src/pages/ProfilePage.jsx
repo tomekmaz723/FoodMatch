@@ -1,16 +1,11 @@
 import { useNavigate } from 'react-router-dom';
+import BrandLogo from '../components/BrandLogo/BrandLogo';
 import NavBar from '../components/NavBar/NavBar';
 import { useAuth } from '../context/AuthContext';
 import MobileLayout from '../layouts/MobileLayout';
 import styles from './ProfilePage.module.css';
 
 /* Icons */
-const ForkKnifeIcon = () => (
-  <svg viewBox="0 0 24 24" fill="currentColor">
-    <path d="M11 2v9a3 3 0 0 1-2 2v9H7v-9a3 3 0 0 1-2-2V2h1.5v7a1.5 1.5 0 0 0 3 0V2H11zM19 2h-1v10.5A2.5 2.5 0 0 1 15.5 15H15v7h-2v-7h-.5A2.5 2.5 0 0 1 10 12.5V2h1.5v10.5a1 1 0 0 0 1 1h.5v-10h1.5v10h.5a1 1 0 0 0 1-1V2H19z" />
-  </svg>
-);
-
 const PencilIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
     <path d="M12 20h9" />
@@ -85,8 +80,7 @@ function ProfilePage() {
 
         <header className={styles.header}>
           <div className={styles.logoWrap}>
-            <ForkKnifeIcon />
-            <span>FoodMatch</span>
+            <BrandLogo variant="compact" />
           </div>
           <img className={styles.smallAvatar} src="/avatar_alex.png" alt="Profile" />
         </header>

@@ -40,36 +40,11 @@
 .brandBtn {
   display: inline-flex;
   align-items: center;
-  gap: 9px;
   background: none;
   border: none;
   cursor: pointer;
-  color: var(--color-text-primary);
   padding: 0;
   min-width: 0;
-}
-
-.logoMark {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
-  background: var(--color-amber);
-  color: #1b1208;
-  flex-shrink: 0;
-}
-
-.logoMark svg {
-  width: 20px;
-  height: 20px;
-}
-
-.brandName {
-  font-size: 1rem;
-  font-weight: 800;
-  white-space: nowrap;
 }
 
 .title {
