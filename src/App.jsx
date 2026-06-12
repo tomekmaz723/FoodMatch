@@ -12,6 +12,7 @@ import FavoritesPage from './pages/FavoritesPage';
 import ProfilePage from './pages/ProfilePage';
 import HistoryPage from './pages/HistoryPage';
 import NotFoundPage from './pages/NotFoundPage';
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
 function App() {
   return (
@@ -31,9 +32,9 @@ function App() {
       <Route path="/restaurant" element={<RestaurantDetailPage />} />
       
       {/* User Pages */}
-      <Route path="/favorites" element={<FavoritesPage />} />
-      <Route path="/profile" element={<ProfilePage />} />
-      <Route path="/history" element={<HistoryPage />} />
+      <Route path="/favorites" element={<ProtectedRoute><FavoritesPage /></ProtectedRoute>} />
+      <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+      <Route path="/history" element={<ProtectedRoute><HistoryPage /></ProtectedRoute>} />
 
       {/* Fallback 404 */}
       <Route path="*" element={<NotFoundPage />} />

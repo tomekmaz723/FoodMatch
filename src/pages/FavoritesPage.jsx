@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import NavBar from '../components/NavBar/NavBar';
+import ScreenHeader from '../components/ScreenHeader/ScreenHeader';
 import MobileLayout from '../layouts/MobileLayout';
 import styles from './FavoritesPage.module.css';
 
@@ -99,6 +100,7 @@ function FavoritesPage() {
   return (
     <MobileLayout>
       <div className={styles.page}>
+        <ScreenHeader title="Favorites" variant="compact" />
         <div className={styles.body}>
           <div className={styles.titleArea}>
             <h1 className={styles.title}>Your Favorites</h1>

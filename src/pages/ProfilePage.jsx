@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import NavBar from '../components/NavBar/NavBar';
+import { useAuth } from '../context/AuthContext';
 import MobileLayout from '../layouts/MobileLayout';
 import styles from './ProfilePage.module.css';
 
@@ -66,6 +67,14 @@ const LogoutIcon = () => (
 
 function ProfilePage() {
   const navigate = useNavigate();
+  const { currentUser, logout } = useAuth();
+  const displayName = currentUser?.displayName || 'FoodMatch User';
+  const username = currentUser?.email ? `@${currentUser.email.split('@')[0]}` : '@foodmatch_user';
+
+  const handleLogout = async () => {
+    await logout();
+    navigate('/', { replace: true });
+  };
 
   return (
     <MobileLayout>
@@ -89,8 +98,8 @@ function ProfilePage() {
               <PencilIcon />
             </button>
           </div>
-          <h1 className={styles.name}>Alex Johnson</h1>
-          <p className={styles.username}>@alex_j_eats</p>
+          <h1 className={styles.name}>{displayName}</h1>
+          <p className={styles.username}>{username}</p>
         </div>
       </section>
 
@@ -140,7 +149,7 @@ function ProfilePage() {
           </button>
         </div>
 
-        <button className={styles.logoutBtn} onClick={() => navigate('/')}>
+        <button className={styles.logoutBtn} onClick={handleLogout}>
           <LogoutIcon />
           Log Out
         </button>

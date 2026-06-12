@@ -11,6 +11,11 @@
   border-top: 1px solid #2e2922;
 }
 
+.publicNav {
+  justify-content: center;
+  gap: 26px;
+}
+
 .tab {
   display: flex;
   flex-direction: column;
@@ -21,6 +26,10 @@
   cursor: pointer;
   padding: 0;
   min-width: 56px;
+}
+
+.publicNav .tab {
+  min-width: 72px;
 }
 
 .iconWrap {

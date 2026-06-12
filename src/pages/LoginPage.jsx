@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import AppLogo from '../components/AppLogo/AppLogo';
 import Button from '../components/Button/Button';
+import { useAuth } from '../context/AuthContext';
 import MobileLayout from '../layouts/MobileLayout';
 import styles from './LoginPage.module.css';
 
@@ -38,6 +39,7 @@ const CreateIcon = () => (
  */
 function LoginPage() {
   const navigate = useNavigate();
+  const { currentUser } = useAuth();
 
   return (
     <MobileLayout>
@@ -65,6 +67,7 @@ function LoginPage() {
             </Button>
           </div>
 
+          {!currentUser && (
           <footer className={styles.footer}>
             <p className={styles.footerText}>
               Already a member?{' '}
@@ -76,6 +79,7 @@ function LoginPage() {
               New here? Sign up →
             </span>
           </footer>
+          )}
         </section>
       </div>
     </MobileLayout>

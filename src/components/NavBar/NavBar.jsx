@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 import styles from './NavBar.module.css';
 
 /* ── Tab icon SVGs ── */
@@ -40,7 +41,13 @@ const ProfileIcon = () => (
   </svg>
 );
 
-const tabs = [
+const publicTabs = [
+  { id: 'new-room',  label: 'New Room',  path: '/lobby',     icon: <CreateIcon /> },
+  { id: 'join-room', label: 'Join Room', path: '/join',      icon: <JoinIcon /> },
+  { id: 'profile',   label: 'Profile',   path: '/auth/login', icon: <ProfileIcon /> },
+];
+
+const privateTabs = [
   { id: 'new-room',  label: 'New Room',  path: '/lobby',     icon: <CreateIcon /> },
   { id: 'join-room', label: 'Join Room', path: '/join',      icon: <JoinIcon /> },
   { id: 'history',   label: 'History',   path: '/history',   icon: <HistoryIcon /> },
@@ -55,9 +62,11 @@ const tabs = [
  */
 function NavBar({ activeTab = '' }) {
   const navigate = useNavigate();
+  const { currentUser } = useAuth();
+  const tabs = currentUser ? privateTabs : publicTabs;
 
   return (
-    <nav className={styles.nav} aria-label="Main navigation">
+    <nav className={`${styles.nav} ${!currentUser ? styles.publicNav : ''}`} aria-label="Main navigation">
       {tabs.map((tab) => {
         const isActive = tab.id === activeTab;
         const tabClass = [styles.tab, isActive && styles.active]

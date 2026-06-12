@@ -1,4 +1,7 @@
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import NavBar from '../components/NavBar/NavBar';
+import { useAuth } from '../context/AuthContext';
 import MobileLayout from '../layouts/MobileLayout';
 import styles from './AuthLoginPage.module.css';
 
@@ -54,6 +57,66 @@ const AppleIcon = () => (
 
 function AuthLoginPage() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { login } = useAuth();
+  const [formValues, setFormValues] = useState({ email: '', password: '' });
+  const [touched, setTouched] = useState({});
+  const [submitted, setSubmitted] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [authError, setAuthError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const redirectPath = location.state?.from?.pathname || '/profile';
+
+  const errors = {
+    email: !formValues.email.trim()
+      ? 'Email is required.'
+      : !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formValues.email)
+        ? 'Enter a valid email address.'
+        : '',
+    password: !formValues.password
+      ? 'Password is required.'
+      : formValues.password.length < 8
+        ? 'Password must be at least 8 characters.'
+        : '',
+  };
+  const isFormValid = !errors.email && !errors.password;
+
+  const updateField = (field, value) => {
+    setFormValues((current) => ({ ...current, [field]: value }));
+    setAuthError('');
+  };
+
+  const markTouched = (field) => {
+    setTouched((current) => ({ ...current, [field]: true }));
+  };
+
+  const shouldShowError = (field) => (touched[field] || submitted) && errors[field];
+
+  const getAuthErrorMessage = (error) => {
+    if (error.code === 'auth/invalid-credential') return 'Email or password is incorrect.';
+    if (error.code === 'auth/user-disabled') return 'This account has been disabled.';
+    if (error.code === 'auth/too-many-requests') return 'Too many attempts. Try again later.';
+    return error.message || 'Could not sign in. Try again.';
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setSubmitted(true);
+    setAuthError('');
+
+    if (!isFormValid) return;
+
+    setIsSubmitting(true);
+
+    try {
+      await login(formValues.email.trim(), formValues.password);
+      navigate(redirectPath, { replace: true });
+    } catch (error) {
+      setAuthError(getAuthErrorMessage(error));
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <MobileLayout>
@@ -81,46 +144,83 @@ function AuthLoginPage() {
       </section>
 
       <div className={styles.body}>
-        <div className={styles.formCard}>
+        <form className={styles.formCard} onSubmit={handleSubmit} noValidate>
           <div className={styles.formGroup}>
-            <label className={styles.label}>Email Address</label>
+            <label className={styles.label} htmlFor="login-email">Email Address</label>
             <div className={styles.inputWrap}>
               <span className={styles.inputIcon}><MailIcon /></span>
-              <input type="email" className={styles.input} placeholder="chef@foodmatch.com" />
+              <input
+                id="login-email"
+                type="email"
+                className={`${styles.input} ${shouldShowError('email') ? styles.inputError : ''}`}
+                placeholder="chef@foodmatch.com"
+                value={formValues.email}
+                onChange={(event) => updateField('email', event.target.value)}
+                onBlur={() => markTouched('email')}
+                aria-invalid={Boolean(shouldShowError('email'))}
+                aria-describedby={shouldShowError('email') ? 'login-email-error' : undefined}
+                required
+              />
             </div>
+            {shouldShowError('email') && (
+              <span id="login-email-error" className={styles.errorText}>{errors.email}</span>
+            )}
           </div>
 
           <div className={styles.formGroup}>
             <div className={styles.labelRow}>
-              <label className={styles.label}>Password</label>
+              <label className={styles.label} htmlFor="login-password">Password</label>
               <span className={styles.forgotLink}>Forgot?</span>
             </div>
             <div className={styles.inputWrap}>
               <span className={styles.inputIcon}><LockIcon /></span>
-              <input type="password" className={styles.input} placeholder="••••••••" />
-              <button className={styles.eyeIcon} aria-label="Toggle visibility">
+              <input
+                id="login-password"
+                type={showPassword ? 'text' : 'password'}
+                className={`${styles.input} ${shouldShowError('password') ? styles.inputError : ''}`}
+                placeholder="Min. 8 characters"
+                value={formValues.password}
+                onChange={(event) => updateField('password', event.target.value)}
+                onBlur={() => markTouched('password')}
+                aria-invalid={Boolean(shouldShowError('password'))}
+                aria-describedby={shouldShowError('password') ? 'login-password-error' : undefined}
+                minLength={8}
+                required
+              />
+              <button
+                className={styles.eyeIcon}
+                type="button"
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+                aria-pressed={showPassword}
+                onClick={() => setShowPassword((current) => !current)}
+              >
                 <EyeIcon />
               </button>
             </div>
+            {shouldShowError('password') && (
+              <span id="login-password-error" className={styles.errorText}>{errors.password}</span>
+            )}
           </div>
 
-          <button className={styles.submitBtn} onClick={() => navigate('/')}>
-            Login <ArrowRight />
+          <button className={styles.submitBtn} type="submit" disabled={(submitted && !isFormValid) || isSubmitting}>
+            {isSubmitting ? 'Logging in...' : 'Login'} <ArrowRight />
           </button>
+
+          {authError && <span className={styles.errorText}>{authError}</span>}
 
           <div className={styles.divider}>OR CONTINUE WITH</div>
 
           <div className={styles.socialBtns}>
-            <button className={styles.socialBtn}>
+            <button className={styles.socialBtn} type="button">
               <span className={styles.socialIcon}><GoogleIcon /></span>
               Google
             </button>
-            <button className={styles.socialBtn}>
+            <button className={styles.socialBtn} type="button">
               <span className={styles.socialIcon}><AppleIcon /></span>
               Apple
             </button>
           </div>
-        </div>
+        </form>
 
         <p className={styles.footerLink}>
           Don&apos;t have an account? <span className={styles.signupText} onClick={() => navigate('/auth/signup')} style={{ cursor: 'pointer' }}>Sign up</span>
@@ -133,6 +233,7 @@ function AuthLoginPage() {
         </div>
       </div>
     </div>
+    <NavBar activeTab="profile" />
   </MobileLayout>
   );
 }
