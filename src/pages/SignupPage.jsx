@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import MobileLayout from '../layouts/MobileLayout';
 import styles from './SignupPage.module.css';
 
 /* Icons */
@@ -54,10 +55,11 @@ function SignupPage() {
   const navigate = useNavigate();
 
   return (
-    <main className={styles.page}>
-      <section className={styles.heroSection}>
-        <img className={styles.heroBg} src="/hero_food_table.png" alt="" />
-        <div className={styles.heroOverlay} />
+    <MobileLayout>
+      <div className={styles.page}>
+        <section className={styles.heroSection}>
+          <img className={styles.heroBg} src="/hero_food.png" alt="" />
+          <div className={styles.heroOverlay} />
 
         <header className={styles.header}>
           <div className={styles.logoWrap}>
@@ -115,10 +117,11 @@ function SignupPage() {
         </button>
 
         <p className={styles.footerLink}>
-          Already have an account? <span className={styles.loginText} onClick={() => navigate('/auth/login')} style={{cursor: 'pointer'}}>Log in</span>
+          Already have an account? <span className={styles.loginText} onClick={() => navigate('/auth/login')} style={{ cursor: 'pointer' }}>Log in</span>
         </p>
       </div>
-    </main>
+    </div>
+  </MobileLayout>
   );
 }
 

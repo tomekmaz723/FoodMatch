@@ -1,26 +1,13 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import RestaurantCard from '../components/RestaurantCard/RestaurantCard';
 import NavBar from '../components/NavBar/NavBar';
+import ScreenHeader, { PeopleIcon } from '../components/ScreenHeader/ScreenHeader';
+import MobileLayout from '../layouts/MobileLayout';
 import styles from './SwipePage.module.css';
 
 /* ═══════════════════════════════════
    Inline SVG icons
    ═══════════════════════════════════ */
-
-const BackArrow = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <polyline points="15 18 9 12 15 6" />
-  </svg>
-);
-
-const PeopleIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-    <circle cx="9" cy="7" r="4" />
-    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-  </svg>
-);
 
 const XIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
@@ -49,25 +36,23 @@ const miniAvatars = [
   '/avatar_mike.png',
 ];
 
+const FALLBACK_PIN = '8821';
+
 /**
  * SwipePage — the main swiping experience.
  * Shows one restaurant card at a time with reject / super-like / like actions.
  */
 function SwipePage() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const roomPin = location.state?.roomPin || FALLBACK_PIN;
+  const routeState = { roomPin };
 
   return (
-    <main className={styles.page}>
+    <MobileLayout>
+      <div className={styles.page}>
       {/* ── Header ── */}
-      <header className={styles.header}>
-        <button className={styles.backBtn} aria-label="Go back" onClick={() => navigate(-1)}>
-          <BackArrow />
-        </button>
-        <h1 className={styles.headerTitle}>Room PIN: 8821</h1>
-        <span className={styles.headerRight} aria-hidden="true">
-          <PeopleIcon />
-        </span>
-      </header>
+      <ScreenHeader title={`Room PIN: ${roomPin}`} backButton rightIcon={<PeopleIcon />} />
 
       {/* ── Sub-header: mini avatars + swiping text ── */}
       <div className={styles.subheader}>
@@ -92,21 +77,22 @@ function SwipePage() {
 
         {/* ── Action buttons ── */}
         <div className={styles.actions}>
-          <button className={`${styles.actionBtn} ${styles.reject}`} aria-label="Reject" onClick={() => navigate('/nomatch')}>
+          <button className={`${styles.actionBtn} ${styles.reject}`} aria-label="Reject" onClick={() => navigate('/nomatch', { state: routeState })}>
             <XIcon />
           </button>
-          <button className={`${styles.actionBtn} ${styles.superLike}`} aria-label="Super like" onClick={() => navigate('/result')}>
+          <button className={`${styles.actionBtn} ${styles.superLike}`} aria-label="Super like" onClick={() => navigate('/result', { state: routeState })}>
             <StarIcon />
           </button>
-          <button className={`${styles.actionBtn} ${styles.like}`} aria-label="Like" onClick={() => navigate('/result')}>
+          <button className={`${styles.actionBtn} ${styles.like}`} aria-label="Like" onClick={() => navigate('/result', { state: routeState })}>
             <HeartIcon />
           </button>
         </div>
       </div>
 
       {/* ── Bottom navigation ── */}
-      <NavBar activeTab="home" />
-    </main>
+      </div>
+      <NavBar />
+    </MobileLayout>
   );
 }
 

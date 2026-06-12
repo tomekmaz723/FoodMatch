@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import NavBar from '../components/NavBar/NavBar';
+import MobileLayout from '../layouts/MobileLayout';
 import styles from './ProfilePage.module.css';
 
 /* Icons */
@@ -67,9 +68,10 @@ function ProfilePage() {
   const navigate = useNavigate();
 
   return (
-    <main className={styles.page}>
-      <section className={styles.heroSection}>
-        <img className={styles.heroBg} src="/hero_food_table.png" alt="" />
+    <MobileLayout>
+      <div className={styles.page}>
+        <section className={styles.heroSection}>
+        <img className={styles.heroBg} src="/hero_food.png" alt="" />
         <div className={styles.heroOverlay} />
 
         <header className={styles.header}>
@@ -144,8 +146,9 @@ function ProfilePage() {
         </button>
       </div>
 
+      </div>
       <NavBar activeTab="profile" />
-    </main>
+    </MobileLayout>
   );
 }
 

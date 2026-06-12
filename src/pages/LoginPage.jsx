@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import AppLogo from '../components/AppLogo/AppLogo';
 import Button from '../components/Button/Button';
+import MobileLayout from '../layouts/MobileLayout';
 import styles from './LoginPage.module.css';
 
 const heroImg = '/hero_food.png';
@@ -39,43 +40,45 @@ function LoginPage() {
   const navigate = useNavigate();
 
   return (
-    <main className={styles.page}>
-      {/* ── Hero image ── */}
-      <section className={styles.hero} aria-label="Food table photo">
-        <img
-          className={styles.heroImage}
-          src={heroImg}
-          alt="Overhead view of a communal dining table filled with dishes"
-        />
-        <div className={styles.heroOverlay} aria-hidden="true" />
-      </section>
+    <MobileLayout>
+      <div className={styles.page}>
+        {/* ── Hero image ── */}
+        <section className={styles.hero} aria-label="Food table photo">
+          <img
+            className={styles.heroImage}
+            src={heroImg}
+            alt="Overhead view of a communal dining table filled with dishes"
+          />
+          <div className={styles.heroOverlay} aria-hidden="true" />
+        </section>
 
-      {/* ── Content ── */}
-      <section className={styles.content}>
-        <AppLogo />
+        {/* ── Content ── */}
+        <section className={styles.content}>
+          <AppLogo />
 
-        <div className={styles.actions}>
-          <Button variant="filled" icon={<JoinIcon />} onClick={() => navigate('/join')}>
-            Join a Room
-          </Button>
-          <Button variant="outlined" icon={<CreateIcon />} onClick={() => navigate('/lobby')}>
-            Create a Room
-          </Button>
-        </div>
+          <div className={styles.actions}>
+            <Button variant="filled" icon={<JoinIcon />} onClick={() => navigate('/join')}>
+              Join a Room
+            </Button>
+            <Button variant="outlined" icon={<CreateIcon />} onClick={() => navigate('/lobby')}>
+              Create a Room
+            </Button>
+          </div>
 
-        <footer className={styles.footer}>
-          <p className={styles.footerText}>
-            Already a member?{' '}
-            <span className={styles.footerLink} onClick={() => navigate('/auth/login')} style={{cursor: 'pointer'}}>
-              Log In
+          <footer className={styles.footer}>
+            <p className={styles.footerText}>
+              Already a member?{' '}
+              <span className={styles.footerLink} onClick={() => navigate('/auth/login')} style={{cursor: 'pointer'}}>
+                Log In
+              </span>
+            </p>
+            <span className={styles.signUpLink} onClick={() => navigate('/auth/signup')} style={{cursor: 'pointer'}}>
+              New here? Sign up →
             </span>
-          </p>
-          <span className={styles.signUpLink} onClick={() => navigate('/auth/signup')} style={{cursor: 'pointer'}}>
-            New here? Sign up →
-          </span>
-        </footer>
-      </section>
-    </main>
+          </footer>
+        </section>
+      </div>
+    </MobileLayout>
   );
 }
 

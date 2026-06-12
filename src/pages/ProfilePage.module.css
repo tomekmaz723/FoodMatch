@@ -1,12 +1,8 @@
 .page {
-  min-height: 100dvh;
-  background: #181410;
-  max-width: 480px;
-  margin: 0 auto;
-  width: 100%;
   display: flex;
   flex-direction: column;
   padding-bottom: 80px;
+  flex: 1;
 }
 
 /* ═══════════════════════════════════
@@ -36,7 +32,7 @@
   left: 0;
   width: 100%;
   height: 220px;
-  background: linear-gradient(to bottom, rgba(24, 20, 16, 0.4) 0%, #181410 100%);
+  background: linear-gradient(to bottom, rgba(24, 20, 16, 0.4) 0%, var(--color-bg) 100%);
   z-index: 2;
 }
 
@@ -103,7 +99,7 @@
   height: 28px;
   border-radius: 50%;
   background: var(--color-amber);
-  border: 2px solid #181410;
+  border: 2px solid var(--color-bg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -140,8 +136,8 @@
 
 .statCard {
   flex: 1;
-  background: #1e1a14;
-  border: 1px solid #2e2922;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: 16px;
   display: flex;
@@ -183,8 +179,8 @@
 }
 
 .menuCard {
-  background: #1e1a14;
-  border: 1px solid #2e2922;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   overflow: hidden;
 }
@@ -202,7 +198,7 @@
 }
 
 .menuItem:not(:last-child) {
-  border-bottom: 1px solid #2e2922;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .menuIcon {
@@ -237,7 +233,7 @@
   border-radius: var(--radius-full);
   font-size: 0.75rem;
   font-weight: 600;
-  background: #2a241e;
+  background: var(--color-surface-light);
   color: #a09585;
 }
 
@@ -256,8 +252,8 @@
 /* Log out */
 .logoutBtn {
   width: 100%;
-  background: #1e1a14;
-  border: 1px solid #2e2922;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: 16px;
   display: flex;

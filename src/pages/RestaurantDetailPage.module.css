@@ -1,68 +1,14 @@
 .page {
-  min-height: 100dvh;
-  background: #181410;
-  max-width: 480px;
-  margin: 0 auto;
-  width: 100%;
   display: flex;
   flex-direction: column;
   position: relative;
   padding-bottom: 90px; /* Space for sticky bottom bar */
+  flex: 1;
 }
 
 /* ═══════════════════════════════════
    Header (Absolute over image)
    ═══════════════════════════════════ */
-.header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 20px;
-  background: linear-gradient(to bottom, rgba(20, 16, 12, 0.9) 0%, rgba(20, 16, 12, 0) 100%);
-}
-
-.backBtn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-.backBtn svg {
-  width: 22px;
-  height: 22px;
-  color: var(--color-amber);
-}
-
-.headerTitle {
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: var(--color-text-primary);
-}
-
-.headerRight {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  color: var(--color-text-primary);
-}
-
-.headerRight svg {
-  width: 24px;
-  height: 24px;
-}
-
 /* ═══════════════════════════════════
    Hero Image Section
    ═══════════════════════════════════ */
@@ -82,7 +28,7 @@
 .heroOverlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, #181410 0%, transparent 40%);
+  background: linear-gradient(to top, var(--color-bg) 0%, transparent 40%);
   pointer-events: none;
 }
 
@@ -201,17 +147,17 @@
   color: #c0b5a5;
   padding: 6px 14px;
   border-radius: var(--radius-full);
-  background: #2a241e;
-  border: 1px solid #3a322a;
+  background: var(--color-surface-light);
+  border: 1px solid var(--color-border);
 }
 
 /* ═══════════════════════════════════
    Cards (Hours, Services, Map)
    ═══════════════════════════════════ */
 .card {
-  background: #1e1a14;
+  background: var(--color-surface);
   border-radius: var(--radius-lg);
-  border: 1px solid #2e2922;
+  border: 1px solid var(--color-border);
   padding: 16px 20px;
   display: flex;
   flex-direction: column;
@@ -285,9 +231,9 @@
 /* Map specific */
 .mapCard {
   padding: 8px;
-  background: #1e1a14;
+  background: var(--color-surface);
   border-radius: var(--radius-lg);
-  border: 1px solid #2e2922;
+  border: 1px solid var(--color-border);
   position: relative;
   height: 140px;
   overflow: hidden;
@@ -312,7 +258,7 @@
 .mapPin {
   width: 44px;
   height: 44px;
-  background: #181410;
+  background: var(--color-bg);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -347,9 +293,9 @@
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  max-width: 480px;
-  background: #1e1a14;
-  border-top: 1px solid #2e2922;
+  max-width: 430px;
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
   padding: 16px 20px;
   display: flex;
   align-items: center;
@@ -381,8 +327,8 @@
 .calendarBtn {
   width: 52px;
   height: 52px;
-  background: #181410;
-  border: 1px solid #3a322a;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-full);
   display: flex;
   align-items: center;

@@ -4,7 +4,6 @@ import AuthLoginPage from './pages/AuthLoginPage';
 import SignupPage from './pages/SignupPage';
 import LobbyPage from './pages/LobbyPage';
 import JoinRoomPage from './pages/JoinRoomPage';
-import WaitingRoomPage from './pages/WaitingRoomPage';
 import SwipePage from './pages/SwipePage';
 import MatchResultPage from './pages/MatchResultPage';
 import NoMatchPage from './pages/NoMatchPage';
@@ -12,6 +11,7 @@ import RestaurantDetailPage from './pages/RestaurantDetailPage';
 import FavoritesPage from './pages/FavoritesPage';
 import ProfilePage from './pages/ProfilePage';
 import HistoryPage from './pages/HistoryPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
   return (
@@ -22,9 +22,9 @@ function App() {
       <Route path="/auth/signup" element={<SignupPage />} />
       
       {/* Core Flow */}
-      <Route path="/lobby" element={<LobbyPage />} />
+      <Route path="/lobby" element={<LobbyPage isHost />} />
       <Route path="/join" element={<JoinRoomPage />} />
-      <Route path="/waiting" element={<WaitingRoomPage />} />
+      <Route path="/waiting" element={<LobbyPage isParticipant />} />
       <Route path="/swipe" element={<SwipePage />} />
       <Route path="/result" element={<MatchResultPage />} />
       <Route path="/nomatch" element={<NoMatchPage />} />
@@ -34,6 +34,9 @@ function App() {
       <Route path="/favorites" element={<FavoritesPage />} />
       <Route path="/profile" element={<ProfilePage />} />
       <Route path="/history" element={<HistoryPage />} />
+
+      {/* Fallback 404 */}
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 }
