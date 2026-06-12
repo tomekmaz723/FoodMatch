@@ -1,8 +1,10 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import {
   createUserWithEmailAndPassword,
+  GoogleAuthProvider,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
   updateProfile,
 } from 'firebase/auth';
@@ -33,6 +35,15 @@ function AuthProvider({ children }) {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
+  const loginWithGoogle = () => {
+    if (!auth) return Promise.reject(new Error(missingConfigMessage));
+
+    const provider = new GoogleAuthProvider();
+    provider.setCustomParameters({ prompt: 'select_account' });
+
+    return signInWithPopup(auth, provider);
+  };
+
   const signup = async ({ email, password, username, firstName }) => {
     if (!auth) throw new Error(missingConfigMessage);
 
@@ -57,6 +68,7 @@ function AuthProvider({ children }) {
       hasFirebaseConfig,
       loading,
       login,
+      loginWithGoogle,
       logout,
       signup,
     }),

@@ -217,3 +217,23 @@
   cursor: pointer;
   margin-left: 4px;
 }
+
+.bottomImages {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: auto;
+  padding: 8px 12px 4px;
+  max-height: 132px;
+}
+
+.foodThumb {
+  flex: 1;
+  min-width: 0;
+  height: 96px;
+  max-width: 112px;
+  border-radius: 14px;
+  object-fit: cover;
+  display: block;
+  opacity: 0.7;
+}

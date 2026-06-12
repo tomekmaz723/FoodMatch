@@ -269,6 +269,12 @@ function SignupPage() {
         <p className={styles.footerLink}>
           Already have an account? <span className={styles.loginText} onClick={() => navigate('/auth/login')} style={{ cursor: 'pointer' }}>Log in</span>
         </p>
+
+        <div className={styles.bottomImages}>
+          <img className={styles.foodThumb} src="/restaurant_burger.png" alt="Burger" />
+          <img className={styles.foodThumb} src="/restaurant_pizza.png" alt="Pizza" />
+          <img className={styles.foodThumb} src="/restaurant_sushi.png" alt="Sushi" />
+        </div>
       </form>
     </div>
     <NavBar activeTab="profile" />

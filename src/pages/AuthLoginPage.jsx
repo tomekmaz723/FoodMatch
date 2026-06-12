@@ -49,16 +49,10 @@ const GoogleIcon = () => (
   </svg>
 );
 
-const AppleIcon = () => (
-  <svg viewBox="0 0 24 24" fill="currentColor">
-    <path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.14-.49-3.21 0-1.04.47-2.04.56-2.95-.36-4.04-4.14-4.83-10.24-1.47-13.06 1.34-1.12 2.84-1.25 3.99-.6 1.07.6 1.7.6 2.81 0 1.25-.68 2.68-.53 3.84.45-2.93 1.74-2.45 5.56.5 6.8-.75 2.45-1.76 4.67-3.41 6.37H17.05v.02zm-2.03-14.7c.36-2.03-1.08-3.9-3.14-4.25-.43 2.05 1.18 3.89 3.14 4.25z" />
-  </svg>
-);
-
 function AuthLoginPage() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { login } = useAuth();
+  const { login, loginWithGoogle } = useAuth();
   const [formValues, setFormValues] = useState({ email: '', password: '' });
   const [touched, setTouched] = useState({});
   const [submitted, setSubmitted] = useState(false);
@@ -94,6 +88,9 @@ function AuthLoginPage() {
 
   const getAuthErrorMessage = (error) => {
     if (error.code === 'auth/invalid-credential') return 'Email or password is incorrect.';
+    if (error.code === 'auth/popup-closed-by-user') return 'Google sign-in was cancelled.';
+    if (error.code === 'auth/popup-blocked') return 'Your browser blocked the Google sign-in popup.';
+    if (error.code === 'auth/account-exists-with-different-credential') return 'This email uses a different sign-in method.';
     if (error.code === 'auth/user-disabled') return 'This account has been disabled.';
     if (error.code === 'auth/too-many-requests') return 'Too many attempts. Try again later.';
     return error.message || 'Could not sign in. Try again.';
@@ -110,6 +107,20 @@ function AuthLoginPage() {
 
     try {
       await login(formValues.email.trim(), formValues.password);
+      navigate(redirectPath, { replace: true });
+    } catch (error) {
+      setAuthError(getAuthErrorMessage(error));
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    setAuthError('');
+    setIsSubmitting(true);
+
+    try {
+      await loginWithGoogle();
       navigate(redirectPath, { replace: true });
     } catch (error) {
       setAuthError(getAuthErrorMessage(error));
@@ -211,13 +222,9 @@ function AuthLoginPage() {
           <div className={styles.divider}>OR CONTINUE WITH</div>
 
           <div className={styles.socialBtns}>
-            <button className={styles.socialBtn} type="button">
+            <button className={styles.socialBtn} type="button" onClick={handleGoogleLogin} disabled={isSubmitting}>
               <span className={styles.socialIcon}><GoogleIcon /></span>
               Google
-            </button>
-            <button className={styles.socialBtn} type="button">
-              <span className={styles.socialIcon}><AppleIcon /></span>
-              Apple
             </button>
           </div>
         </form>
