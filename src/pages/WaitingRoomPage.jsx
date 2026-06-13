@@ -90,7 +90,10 @@ function WaitingRoomPage() {
         <section className={styles.squadSection} aria-label="Participants">
           <div className={styles.squadHeader}>
             <span className={styles.squadTitle}>Gathering the squad</span>
-            <span className={styles.joinedBadge}>3 Joined</span>
+            <span className={styles.joinedBadge}>
+              <span className={styles.onlineDot} />
+              3 Joined
+            </span>
           </div>
 
           <div className={styles.avatarsRow}>
@@ -152,7 +155,7 @@ function WaitingRoomPage() {
         
         {/* Prototype button for presentation to move forward */}
         <div className={styles.ctaWrap}>
-          <Button variant="filled" onClick={() => navigate('/swipe', { state: { roomPin } })}>Ready to swip</Button>
+          <Button variant="filled" onClick={() => navigate('/swipe', { state: { roomPin } })}>Ready to swipe</Button>
         </div>
       </div>
 

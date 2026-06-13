@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import NavBar from '../components/NavBar/NavBar';
 import ScreenHeader from '../components/ScreenHeader/ScreenHeader';
+import { useUserData } from '../context/UserDataContext';
 import MobileLayout from '../layouts/MobileLayout';
 import styles from './FavoritesPage.module.css';
 
@@ -24,59 +25,14 @@ const HeartOutlineIcon = () => (
   </svg>
 );
 
-const favorites = [
-  {
-    id: 1,
-    name: "Luigi's Pizzeria",
-    rating: '4.9',
-    price: '$$',
-    cuisine: 'Italian',
-    sub: 'Best Truffle Pizza in NYC',
-    image: '/restaurant_pizza.png',
-    tags: ['Pizza', 'Italian', 'Truffle'],
-    description: 'A cozy neighborhood pizzeria known for truffle pies, crisp crusts, and late evening tables with a warm city buzz.',
-  },
-  {
-    id: 2,
-    name: 'Sakura Zen',
-    rating: '4.7',
-    price: '$$$',
-    cuisine: 'Sushi',
-    sub: 'Authentic Omakase experience',
-    image: '/restaurant_sushi.png',
-    tags: ['Sushi', 'Omakase', 'Japanese'],
-    description: 'A quiet sushi counter serving precise omakase courses, seasonal fish, and delicate small plates.',
-  },
-  {
-    id: 3,
-    name: 'The Burger Box',
-    rating: '4.5',
-    price: '$$',
-    cuisine: 'Burger',
-    sub: 'Classic comfort in every bite',
-    image: '/restaurant_burger.png',
-    tags: ['Burgers', 'American', 'Comfort'],
-    description: 'Juicy smashed burgers, golden fries, and simple comfort food made for casual group dinners.',
-  },
-  {
-    id: 4,
-    name: 'El Camino Tacos',
-    rating: '4.8',
-    price: '$',
-    cuisine: 'Mexican',
-    sub: 'Late night cravings sorted',
-    image: '/restaurant_tacos.png',
-    tags: ['Tacos', 'Mexican', 'Street Food'],
-    description: 'Bright tacos, smoky salsa, and relaxed late-night energy with quick service and bold flavors.',
-  },
-];
-
 const filters = ['All', 'Italian', 'Sushi', 'Burger', 'Mexican'];
 
 function FavoritesPage() {
   const navigate = useNavigate();
+  const { userData } = useUserData();
   const [activeFilter, setActiveFilter] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
+  const favorites = userData?.favorites || [];
 
   const visibleFavorites = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
@@ -132,6 +88,10 @@ function FavoritesPage() {
           </div>
 
           <div className={styles.cardsList}>
+            {visibleFavorites.length === 0 && (
+              <p className={styles.emptyText}>No favorites saved yet.</p>
+            )}
+
             {visibleFavorites.map((fav) => (
               <article
                 key={fav.id}

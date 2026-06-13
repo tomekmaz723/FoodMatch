@@ -78,6 +78,11 @@
   background: var(--color-surface-light);
 }
 
+.matchCard:focus-visible {
+  outline: 2px solid var(--color-amber);
+  outline-offset: 2px;
+}
+
 .cardImage {
   width: 64px;
   height: 64px;
@@ -156,4 +161,11 @@
   font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
+}
+
+.emptyText {
+  color: #a09585;
+  font-size: 0.9rem;
+  padding: 20px 4px;
+  text-align: center;
 }

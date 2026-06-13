@@ -1,6 +1,8 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import Button from '../components/Button/Button';
+import NavBar from '../components/NavBar/NavBar';
 import ScreenHeader, { PeopleIcon } from '../components/ScreenHeader/ScreenHeader';
+import { restaurants } from '../data/restaurants';
 import MobileLayout from '../layouts/MobileLayout';
 import styles from './MatchResultPage.module.css';
 
@@ -47,6 +49,7 @@ function MatchResultPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const roomPin = location.state?.roomPin || FALLBACK_PIN;
+  const restaurant = location.state?.restaurant || restaurants.burgerJoint;
 
   return (
     <MobileLayout>
@@ -66,8 +69,8 @@ function MatchResultPage() {
           <div className={styles.imageWrap}>
             <img
               className={styles.cardImage}
-              src="/restaurant_burger.png"
-              alt="The Burger Joint"
+              src={restaurant.image}
+              alt={restaurant.name}
             />
             <div className={styles.imageOverlay} aria-hidden="true" />
 
@@ -85,26 +88,26 @@ function MatchResultPage() {
           </div>
 
           <div className={styles.cardInfo}>
-            <h3 className={styles.restaurantName}>The Burger Joint</h3>
+            <h3 className={styles.restaurantName}>{restaurant.name}</h3>
 
             <div className={styles.metaRow}>
               <StarOutline />
-              <span>4.8 (2.4k reviews)</span>
+              <span>{restaurant.rating} (2.4k reviews)</span>
               <span className={styles.metaDot}>·</span>
-              <span>$$</span>
+              <span>{restaurant.price}</span>
             </div>
 
             <div className={styles.tags}>
-              <span className={styles.tag}>Gourmet Burgers</span>
-              <span className={styles.tag}>Craft Beer</span>
-              <span className={styles.tag}>Outdoor Seating</span>
+              {restaurant.tags.slice(0, 3).map((tag) => (
+                <span key={tag} className={styles.tag}>{tag}</span>
+              ))}
             </div>
           </div>
         </article>
 
         {/* ── Action buttons ── */}
         <div className={styles.actions}>
-          <Button variant="filled" icon={<InfoIcon />} onClick={() => navigate('/restaurant')}>
+          <Button variant="filled" icon={<InfoIcon />} onClick={() => navigate('/restaurant', { state: { restaurant } })}>
             View Details
           </Button>
           <Button variant="outlined" icon={<MapIcon />} onClick={() => navigate('/')}>
@@ -113,6 +116,7 @@ function MatchResultPage() {
         </div>
       </div>
     </div>
+    <NavBar />
   </MobileLayout>
   );
 }

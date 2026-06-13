@@ -203,3 +203,10 @@
   width: 20px;
   height: 20px;
 }
+
+.emptyText {
+  color: #a09585;
+  font-size: 0.9rem;
+  padding: 20px 4px;
+  text-align: center;
+}

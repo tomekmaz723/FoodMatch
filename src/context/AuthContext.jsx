@@ -13,10 +13,31 @@ import { auth, hasFirebaseConfig } from '../firebase';
 const AuthContext = createContext(null);
 
 const missingConfigMessage = 'Firebase is not configured. Add VITE_FIREBASE_* values to your .env file.';
+const DEMO_AUTH_KEY = 'foodmatch:demo-user';
+const demoCredentials = {
+  email: 'test@test.com',
+  password: 'test',
+};
+const demoUser = {
+  uid: 'demo-test-user',
+  email: demoCredentials.email,
+  displayName: 'Test User',
+  isDemo: true,
+};
+
+const readDemoUser = () => {
+  try {
+    return JSON.parse(localStorage.getItem(DEMO_AUTH_KEY));
+  } catch {
+    return null;
+  }
+};
 
 function AuthProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState(null);
+  const [firebaseUser, setFirebaseUser] = useState(null);
+  const [demoSession, setDemoSession] = useState(readDemoUser);
   const [loading, setLoading] = useState(true);
+  const currentUser = demoSession || firebaseUser;
 
   useEffect(() => {
     if (!auth) {
@@ -25,12 +46,18 @@ function AuthProvider({ children }) {
     }
 
     return onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user);
+      setFirebaseUser(user);
       setLoading(false);
     });
   }, []);
 
   const login = (email, password) => {
+    if (email.trim().toLowerCase() === demoCredentials.email && password === demoCredentials.password) {
+      localStorage.setItem(DEMO_AUTH_KEY, JSON.stringify(demoUser));
+      setDemoSession(demoUser);
+      return Promise.resolve({ user: demoUser });
+    }
+
     if (!auth) return Promise.reject(new Error(missingConfigMessage));
     return signInWithEmailAndPassword(auth, email, password);
   };
@@ -57,8 +84,11 @@ function AuthProvider({ children }) {
     return credentials;
   };
 
-  const logout = () => {
-    if (!auth) return Promise.reject(new Error(missingConfigMessage));
+  const logout = async () => {
+    localStorage.removeItem(DEMO_AUTH_KEY);
+    setDemoSession(null);
+
+    if (!auth) return Promise.resolve();
     return signOut(auth);
   };
 

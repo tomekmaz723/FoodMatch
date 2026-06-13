@@ -261,3 +261,92 @@
   width: 20px;
   height: 20px;
 }
+
+.menuChevron {
+  transition: transform 0.18s ease;
+}
+
+.menuChevron.open {
+  transform: rotate(90deg);
+}
+
+.preferencesCard {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.prefGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.prefLabel {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #d4cfc7;
+}
+
+.chipRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.savePrefsBtn,
+.panelSaveBtn {
+  height: 44px;
+  border: none;
+  border-radius: var(--radius-full);
+  background: var(--color-amber);
+  color: #1a1200;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.panelContent {
+  padding: 16px 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.panelLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  color: #c0b5a5;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.panelInput {
+  width: 100%;
+  height: 42px;
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  color: #ffffff;
+  padding: 0 12px;
+}
+
+.panelInput:focus {
+  outline: none;
+  border-color: var(--color-amber);
+}
+
+.toggleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #e0d5c5;
+  font-size: 0.9rem;
+  font-weight: 600;
+}

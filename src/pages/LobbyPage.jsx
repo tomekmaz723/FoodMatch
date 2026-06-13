@@ -6,6 +6,8 @@ import Button from '../components/Button/Button';
 import NavBar from '../components/NavBar/NavBar';
 import ScreenHeader from '../components/ScreenHeader/ScreenHeader';
 import StatCard from '../components/StatCard/StatCard';
+import { useAuth } from '../context/AuthContext';
+import { useUserData } from '../context/UserDataContext';
 import MobileLayout from '../layouts/MobileLayout';
 import WaitingRoomPage from './WaitingRoomPage';
 import styles from './LobbyPage.module.css';
@@ -74,6 +76,8 @@ const generateRoomPin = () =>
  */
 function LobbyPage({ isHost = false, isParticipant = false }) {
   const navigate = useNavigate();
+  const { currentUser } = useAuth();
+  const { userData, recordHostedRoom } = useUserData();
   const roomPin = useMemo(generateRoomPin, []);
   const pinDigits = roomPin.split('');
   const [selectedPreferences, setSelectedPreferences] = useState({
@@ -82,7 +86,10 @@ function LobbyPage({ isHost = false, isParticipant = false }) {
     dietary: ['Vegan'],
   });
   const [radius, setRadius] = useState(2);
+  const [useSavedPreferences, setUseSavedPreferences] = useState(false);
   const shouldShowParticipantLobby = isParticipant && !isHost;
+  const canUseSavedPreferences = Boolean(currentUser && userData?.preferencesSaved);
+  const savedPreferencesChecked = canUseSavedPreferences && useSavedPreferences;
 
   if (shouldShowParticipantLobby) {
     return <WaitingRoomPage />;
@@ -107,7 +114,22 @@ function LobbyPage({ isHost = false, isParticipant = false }) {
   };
 
   const handleStartRoom = () => {
+    recordHostedRoom();
     navigate('/swipe', { state: { roomPin } });
+  };
+
+  const handleSavedPreferencesChange = (event) => {
+    const checked = event.target.checked;
+    setUseSavedPreferences(checked);
+
+    if (checked && userData?.preferences) {
+      setSelectedPreferences({
+        price: userData.preferences.price || [],
+        cuisine: userData.preferences.cuisine || [],
+        dietary: userData.preferences.dietary || [],
+      });
+      setRadius(userData.preferences.radius || 2);
+    }
   };
 
   const increaseRadius = () => {
@@ -148,7 +170,10 @@ function LobbyPage({ isHost = false, isParticipant = false }) {
       <section className={styles.friendsSection} aria-label="Friends in room">
         <div className={styles.friendsHeader}>
           <h2 className={styles.friendsTitle}>Friends in Room</h2>
-          <span className={styles.onlineBadge}>3 Online</span>
+          <span className={styles.onlineBadge}>
+            <span className={styles.onlineDot} />
+            3 Joined
+          </span>
         </div>
 
         <div className={styles.avatarsRow}>
@@ -221,8 +246,15 @@ function LobbyPage({ isHost = false, isParticipant = false }) {
         </div>
 
         {/* Saved prefs checkbox */}
-        <label className={styles.checkboxRow}>
-          <input type="checkbox" className={styles.checkbox} />
+        <label className={`${styles.checkboxRow} ${!canUseSavedPreferences ? styles.disabledOption : ''}`}>
+          <input
+            type="checkbox"
+            className={styles.checkbox}
+            checked={savedPreferencesChecked}
+            disabled={!canUseSavedPreferences}
+            title={!canUseSavedPreferences ? 'Save preferences in your profile first' : undefined}
+            onChange={handleSavedPreferencesChange}
+          />
           <span className={styles.checkboxText}>Use my saved preferences</span>
         </label>
       </section>

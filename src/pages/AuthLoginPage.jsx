@@ -55,6 +55,7 @@ function AuthLoginPage() {
   const [authError, setAuthError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const redirectPath = location.state?.from?.pathname || '/profile';
+  const isDemoLogin = formValues.email.trim().toLowerCase() === 'test@test.com' && formValues.password === 'test';
 
   const errors = {
     email: !formValues.email.trim()
@@ -64,7 +65,7 @@ function AuthLoginPage() {
         : '',
     password: !formValues.password
       ? 'Password is required.'
-      : formValues.password.length < 8
+      : !isDemoLogin && formValues.password.length < 8
         ? 'Password must be at least 8 characters.'
         : '',
   };

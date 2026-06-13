@@ -1,7 +1,10 @@
+import { useMemo, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import RestaurantCard from '../components/RestaurantCard/RestaurantCard';
 import NavBar from '../components/NavBar/NavBar';
 import ScreenHeader, { PeopleIcon } from '../components/ScreenHeader/ScreenHeader';
+import { useUserData } from '../context/UserDataContext';
+import { restaurants } from '../data/restaurants';
 import MobileLayout from '../layouts/MobileLayout';
 import styles from './SwipePage.module.css';
 
@@ -13,12 +16,6 @@ const XIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
     <line x1="18" y1="6" x2="6" y2="18" />
     <line x1="6" y1="6" x2="18" y2="18" />
-  </svg>
-);
-
-const StarIcon = () => (
-  <svg viewBox="0 0 24 24" fill="currentColor">
-    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z" />
   </svg>
 );
 
@@ -37,6 +34,10 @@ const miniAvatars = [
 ];
 
 const FALLBACK_PIN = '8821';
+const shuffleRestaurants = () =>
+  Object.values(restaurants)
+    .sort(() => Math.random() - 0.5)
+    .slice(0, 5);
 
 /**
  * SwipePage — the main swiping experience.
@@ -45,8 +46,103 @@ const FALLBACK_PIN = '8821';
 function SwipePage() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { recordDecision } = useUserData();
   const roomPin = location.state?.roomPin || FALLBACK_PIN;
   const routeState = { roomPin };
+  const swipeRestaurants = useMemo(shuffleRestaurants, []);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [acceptedRestaurants, setAcceptedRestaurants] = useState([]);
+  const [isExiting, setIsExiting] = useState(false);
+  const currentRestaurant = swipeRestaurants[currentIndex];
+  const dragStartX = useRef(0);
+  const [dragX, setDragX] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const swipeProgress = Math.min(Math.abs(dragX) / 120, 1);
+  const decision = dragX > 28 ? 'like' : dragX < -28 ? 'reject' : '';
+
+  const finishSwipe = (direction) => {
+    if (isExiting) return;
+
+    setIsDragging(false);
+    setIsExiting(true);
+    setDragX(direction === 'like' ? 420 : -420);
+    const isLiked = direction === 'like';
+    const nextAccepted = isLiked
+      ? [...acceptedRestaurants, currentRestaurant]
+      : acceptedRestaurants;
+
+    if (isLiked) {
+      setAcceptedRestaurants(nextAccepted);
+    }
+
+    recordDecision(currentRestaurant, isLiked);
+
+    window.setTimeout(() => {
+      const isLastCard = currentIndex >= swipeRestaurants.length - 1;
+
+      if (isLastCard) {
+        if (nextAccepted.length === 0) {
+          navigate('/nomatch', { state: routeState });
+          return;
+        }
+
+        const shownRestaurant = nextAccepted[Math.floor(Math.random() * nextAccepted.length)];
+        const resultPath = Math.random() > 0.5 ? '/result' : '/nomatch';
+        navigate(resultPath, { state: { ...routeState, restaurant: shownRestaurant } });
+        return;
+      }
+
+      setCurrentIndex((index) => index + 1);
+      setDragX(0);
+      setIsExiting(false);
+    }, 180);
+  };
+
+  const resetCard = () => {
+    setIsDragging(false);
+    setIsExiting(false);
+    setDragX(0);
+  };
+
+  const handlePointerDown = (event) => {
+    event.currentTarget.setPointerCapture?.(event.pointerId);
+    dragStartX.current = event.clientX - dragX;
+    setIsDragging(true);
+  };
+
+  const handlePointerMove = (event) => {
+    if (!isDragging) return;
+    setDragX(event.clientX - dragStartX.current);
+  };
+
+  const handlePointerUp = (event) => {
+    event.currentTarget.releasePointerCapture?.(event.pointerId);
+
+    if (dragX > 120) {
+      finishSwipe('like');
+      return;
+    }
+
+    if (dragX < -120) {
+      finishSwipe('reject');
+      return;
+    }
+
+    resetCard();
+  };
+
+  const cardStyle = {
+    transform: `translateX(${dragX}px) rotate(${dragX / 18}deg)`,
+    transition: isDragging ? 'none' : 'transform 0.2s ease',
+  };
+
+  const rejectStyle = {
+    '--swipe-scale': decision === 'reject' ? 1 + swipeProgress * 0.22 : 1,
+  };
+
+  const likeStyle = {
+    '--swipe-scale': decision === 'like' ? 1 + swipeProgress * 0.22 : 1,
+  };
 
   return (
     <MobileLayout>
@@ -66,24 +162,41 @@ function SwipePage() {
 
       <div className={styles.body}>
         {/* ── Restaurant card ── */}
-        <RestaurantCard
-          image="/restaurant_burger.png"
-          name="The Burger Joint"
-          rating={4.8}
-          price="$$"
-          distance="0.8 km"
-          tags={['Burgers', 'American', 'Craft Beer']}
-        />
+        <div
+          className={styles.swipeCardWrap}
+          style={cardStyle}
+          data-decision={decision}
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerUp}
+          onPointerCancel={resetCard}
+        >
+          <RestaurantCard
+            image={currentRestaurant.image}
+            name={currentRestaurant.name}
+            rating={currentRestaurant.rating}
+            price={currentRestaurant.price}
+            distance="0.8 km"
+            tags={currentRestaurant.tags}
+          />
+        </div>
 
         {/* ── Action buttons ── */}
         <div className={styles.actions}>
-          <button className={`${styles.actionBtn} ${styles.reject}`} aria-label="Reject" onClick={() => navigate('/nomatch', { state: routeState })}>
+          <button
+            className={`${styles.actionBtn} ${styles.reject} ${decision === 'reject' ? styles.activeReject : ''}`}
+            style={rejectStyle}
+            aria-label="Reject"
+            onClick={() => finishSwipe('reject')}
+          >
             <XIcon />
           </button>
-          <button className={`${styles.actionBtn} ${styles.superLike}`} aria-label="Super like" onClick={() => navigate('/result', { state: routeState })}>
-            <StarIcon />
-          </button>
-          <button className={`${styles.actionBtn} ${styles.like}`} aria-label="Like" onClick={() => navigate('/result', { state: routeState })}>
+          <button
+            className={`${styles.actionBtn} ${styles.like} ${decision === 'like' ? styles.activeLike : ''}`}
+            style={likeStyle}
+            aria-label="Like"
+            onClick={() => finishSwipe('like')}
+          >
             <HeartIcon />
           </button>
         </div>

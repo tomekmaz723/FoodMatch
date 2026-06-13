@@ -10,6 +10,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  overflow: hidden;
 }
 
 /* ═══════════════════════════════════
@@ -50,6 +51,51 @@
   color: var(--color-text-secondary);
 }
 
+.swipeCardWrap {
+  position: relative;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+  will-change: transform;
+}
+
+.swipeCardWrap:active {
+  cursor: grabbing;
+}
+
+.swipeCardWrap::after {
+  position: absolute;
+  top: 36px;
+  z-index: 3;
+  padding: 12px 24px;
+  border: 5px solid currentColor;
+  border-radius: 16px;
+  font-size: 2.15rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  opacity: 0;
+  pointer-events: none;
+  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.55);
+  transform: rotate(-8deg);
+  transition: opacity 0.12s ease;
+}
+
+.swipeCardWrap[data-decision='like']::after {
+  content: 'YUM';
+  left: 50%;
+  color: var(--color-amber);
+  opacity: 1;
+  transform: translateX(-50%) rotate(-7deg);
+}
+
+.swipeCardWrap[data-decision='reject']::after {
+  content: 'NAH';
+  left: 50%;
+  color: #e05555;
+  opacity: 1;
+  transform: translateX(-50%) rotate(7deg);
+}
+
 /* ═══════════════════════════════════
    Swipe action buttons
    ═══════════════════════════════════ */
@@ -57,8 +103,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 28px;
-  padding: 8px 0;
+  gap: 34px;
+  padding: 10px 0;
 }
 
 .actionBtn {
@@ -68,49 +114,55 @@
   border-radius: 50%;
   border: none;
   cursor: pointer;
-  transition: transform 0.12s ease, box-shadow 0.15s ease;
+  transform: scale(var(--swipe-scale, 1));
+  transition: transform 0.12s ease, box-shadow 0.15s ease, background 0.15s ease;
 }
 
 .actionBtn:active {
-  transform: scale(0.92);
+  transform: scale(calc(var(--swipe-scale, 1) * 0.92));
 }
 
 /* Reject (X) */
 .reject {
-  width: 54px;
-  height: 54px;
+  width: 62px;
+  height: 62px;
   background: var(--color-border);
 }
 
 .reject svg {
-  width: 24px;
-  height: 24px;
+  width: 27px;
+  height: 27px;
   color: #e05555;
 }
 
-/* Super-like (★) — larger */
-.superLike {
-  width: 72px;
-  height: 72px;
-  background: var(--color-amber);
-  box-shadow: 0 4px 20px rgba(245, 166, 35, 0.3);
+.activeReject {
+  background: #e05555;
+  box-shadow: 0 10px 26px rgba(224, 85, 85, 0.28);
 }
 
-.superLike svg {
-  width: 32px;
-  height: 32px;
+.activeReject svg {
   color: #1a1200;
 }
 
+/* Super-like (★) — larger */
 /* Like (♥) */
 .like {
-  width: 54px;
-  height: 54px;
+  width: 62px;
+  height: 62px;
   background: var(--color-border);
 }
 
 .like svg {
-  width: 24px;
-  height: 24px;
+  width: 27px;
+  height: 27px;
   color: #e8954a;
+}
+
+.activeLike {
+  background: var(--color-amber);
+  box-shadow: 0 10px 26px rgba(245, 166, 35, 0.32);
+}
+
+.activeLike svg {
+  color: #1a1200;
 }

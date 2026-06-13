@@ -1,5 +1,7 @@
+import { useNavigate } from 'react-router-dom';
 import NavBar from '../components/NavBar/NavBar';
-import ScreenHeader, { PeopleIcon } from '../components/ScreenHeader/ScreenHeader';
+import ScreenHeader from '../components/ScreenHeader/ScreenHeader';
+import { useUserData } from '../context/UserDataContext';
 import MobileLayout from '../layouts/MobileLayout';
 import styles from './HistoryPage.module.css';
 
@@ -10,66 +12,55 @@ const ChevronRight = () => (
   </svg>
 );
 
-const matches = [
-  {
-    id: 1,
-    name: "The Golden Grill",
-    date: "Yesterday, 8:30 PM",
-    image: "/restaurant_grill.png",
-    avatars: ["/avatar_alex.png", "/avatar_sarah.png"],
-    plusCount: 2,
-  },
-  {
-    id: 2,
-    name: "Sushi Zen Master",
-    date: "Nov 14, 2023",
-    image: "/restaurant_sushi.png",
-    avatars: ["/avatar_alex.png", "/avatar_mike.png"],
-  },
-  {
-    id: 3,
-    name: "Luigi's Neapolitan",
-    date: "Nov 12, 2023",
-    image: "/restaurant_pizza.png",
-    avatars: ["/avatar_host.png", "/avatar_sarah.png", "/avatar_mike.png"],
-  },
-  {
-    id: 4,
-    name: "Burger Republic",
-    date: "Nov 08, 2023",
-    image: "/restaurant_burger.png",
-    avatars: ["/avatar_alex.png"],
-  },
-];
-
 function HistoryPage() {
+  const navigate = useNavigate();
+  const { userData } = useUserData();
+  const matches = userData?.history || [];
+
+  const openRestaurant = (restaurant) => {
+    navigate('/restaurant', { state: { restaurant } });
+  };
+
   return (
     <MobileLayout>
       <div className={styles.page}>
       <ScreenHeader
         title="History"
-        backButton
-        rightIcon={<PeopleIcon />}
-        variant="spacious"
-        titleTone="accent"
+        variant="compact"
       />
 
       <div className={styles.statsRow}>
         <div className={styles.statCard}>
           <span className={styles.statLabel}>Total Decisions</span>
-          <span className={styles.statValue}>42</span>
+          <span className={styles.statValue}>{userData?.totalDecisions ?? 0}</span>
         </div>
         <div className={styles.statCard}>
           <span className={styles.statLabel}>Top Cuisine</span>
-          <span className={styles.statValue}>Japanese</span>
+          <span className={styles.statValue}>{userData?.topCuisine || '-'}</span>
         </div>
       </div>
 
       <div className={styles.listContainer}>
         <h2 className={styles.sectionTitle}>Recent Matches</h2>
 
+        {matches.length === 0 && (
+          <p className={styles.emptyText}>No dining history yet.</p>
+        )}
+
         {matches.map((match) => (
-          <article key={match.id} className={styles.matchCard}>
+          <article
+            key={`${match.id}-${match.date}`}
+            className={styles.matchCard}
+            role="button"
+            tabIndex={0}
+            onClick={() => openRestaurant(match)}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                openRestaurant(match);
+              }
+            }}
+          >
             <img className={styles.cardImage} src={match.image} alt={match.name} />
             
             <div className={styles.cardContent}>

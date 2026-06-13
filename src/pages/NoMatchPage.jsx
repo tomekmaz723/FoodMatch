@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Button from '../components/Button/Button';
 import NavBar from '../components/NavBar/NavBar';
 import ScreenHeader, { PeopleIcon } from '../components/ScreenHeader/ScreenHeader';
+import { restaurants } from '../data/restaurants';
 import MobileLayout from '../layouts/MobileLayout';
 import styles from './NoMatchPage.module.css';
 
@@ -62,6 +63,7 @@ function NoMatchPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const roomPin = location.state?.roomPin || FALLBACK_PIN;
+  const restaurant = location.state?.restaurant || restaurants.luigis;
 
   return (
     <MobileLayout>
@@ -93,19 +95,19 @@ function NoMatchPage() {
           <div className={styles.favImageWrap}>
             <img
               className={styles.favImage}
-              src="/restaurant_pizza.png"
-              alt="Pizza Palace"
+              src={restaurant.image}
+              alt={restaurant.name}
             />
             <div className={styles.favImageOverlay} aria-hidden="true" />
 
             <div className={styles.favImageInfo}>
               <div className={styles.favMeta}>
                 <StarFill />
-                <span>4.5 Stars</span>
+                <span>{restaurant.rating} Stars</span>
                 <span>·</span>
-                <span>$$</span>
+                <span>{restaurant.price}</span>
               </div>
-              <h3 className={styles.favName}>Pizza Palace</h3>
+              <h3 className={styles.favName}>{restaurant.name}</h3>
             </div>
           </div>
 
@@ -124,8 +126,8 @@ function NoMatchPage() {
 
         {/* ── Action buttons ── */}
         <div className={styles.actions}>
-          <Button variant="filled" onClick={() => navigate('/restaurant')}>
-            Choose this anyway
+          <Button variant="filled" onClick={() => navigate('/restaurant', { state: { restaurant } })}>
+            View Details
           </Button>
           <Button variant="outlined" onClick={() => navigate('/lobby')}>
             Start New Round

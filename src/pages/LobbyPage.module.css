@@ -11,7 +11,7 @@
    ═══════════════════════════════════ */
 .banner {
   background:
-    linear-gradient(to bottom, rgba(18, 14, 10, 0.42) 0%, rgba(18, 14, 10, 0.78) 48%, rgba(18, 14, 10, 0.94) 100%),
+    linear-gradient(to bottom, rgba(18, 14, 10, 0.72) 0%, rgba(18, 14, 10, 0.88) 48%, rgba(18, 14, 10, 0.98) 100%),
     url('/hero_food.png') center / cover;
   border-radius: var(--radius-lg);
   padding: 30px 24px 26px;
@@ -131,13 +131,22 @@
 .onlineBadge {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 7px;
   background: #2a2a2a;
   color: #ffffff;
   font-size: 0.72rem;
   font-weight: 600;
   padding: 4px 12px;
   border-radius: var(--radius-full);
+}
+
+.onlineDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #32d46b;
+  box-shadow: 0 0 0 0 rgba(50, 212, 107, 0.55);
+  animation: onlinePulse 1.6s ease-out infinite;
 }
 
 .avatarsRow {
@@ -244,6 +253,20 @@
   color: var(--color-text-secondary);
 }
 
+.checkbox:disabled {
+  cursor: not-allowed;
+  opacity: 0.35;
+}
+
+.disabledOption {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.disabledOption .checkboxText {
+  color: #8d857a;
+}
+
 /* ═══════════════════════════════════
    Stats Row
    ═══════════════════════════════════ */
@@ -302,4 +325,18 @@
   font-size: 1.1rem;
   font-weight: 800;
   color: #5ec6d0;
+}
+
+@keyframes onlinePulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(50, 212, 107, 0.55);
+  }
+
+  70% {
+    box-shadow: 0 0 0 8px rgba(50, 212, 107, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(50, 212, 107, 0);
+  }
 }

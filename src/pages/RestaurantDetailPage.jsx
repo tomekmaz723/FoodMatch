@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import Button from '../components/Button/Button';
 import NavBar from '../components/NavBar/NavBar';
-import ScreenHeader, { PeopleIcon } from '../components/ScreenHeader/ScreenHeader';
+import ScreenHeader from '../components/ScreenHeader/ScreenHeader';
 import MobileLayout from '../layouts/MobileLayout';
 import styles from './RestaurantDetailPage.module.css';
 
@@ -80,6 +80,13 @@ const CalendarIcon = () => (
   </svg>
 );
 
+const ArrowLeftIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+    <line x1="19" y1="12" x2="5" y2="12" />
+    <polyline points="12 19 5 12 12 5" />
+  </svg>
+);
+
 /**
  * RestaurantDetailPage — Detailed view of a restaurant.
  */
@@ -105,7 +112,6 @@ function RestaurantDetailPage() {
       <ScreenHeader
         title=""
         backButton
-        rightIcon={<PeopleIcon />}
         variant="overlay"
         rightTone="primary"
       />
@@ -114,6 +120,9 @@ function RestaurantDetailPage() {
       <section className={styles.heroSection}>
         <img className={styles.heroImage} src={restaurantImage} alt={restaurantName} />
         <div className={styles.heroOverlay} aria-hidden="true" />
+        <button className={styles.backArrowBtn} type="button" aria-label="Go back" onClick={() => navigate(-1)}>
+          <ArrowLeftIcon />
+        </button>
         
         <div className={styles.heroBadges}>
           <div className={styles.badge}>
