@@ -182,20 +182,6 @@ Google Analytics jest inicjalizowane przez komponent `AnalyticsListener`. Kompon
 
 Hotjar jest inicjalizowany przez `HotjarInitializer`, jeśli dostępna jest zmienna `VITE_HOTJAR_SITE_ID`.
 
-## Screenshoty Do Oddania Projektu
-
-Przed finalnym oddaniem projektu warto dodać screenshoty:
-
-- Ekrany aplikacji: login, join room, lobby, swipe, match/no-match, favorites, profile, history.
-- Panel Google Analytics pokazujący ruch w aplikacji.
-- Panel Hotjar/Contentsquare pokazujący działające śledzenie.
-- Ekran wdrożenia Firebase Hosting albo URL działającej aplikacji.
-
-Sugerowany folder:
-
-```txt
-docs/screenshots/
-```
 
 ## Uwagi
 
