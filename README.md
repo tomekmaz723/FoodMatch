@@ -1,41 +1,41 @@
-﻿# FoodMatch
+# FoodMatch
 
-FoodMatch is a React web application for choosing restaurants with friends. Users can create or join a room, configure food preferences, swipe through restaurant cards, and see a final match or group favorite. The project is built as a polished mobile-first web app with responsive desktop presentation.
+FoodMatch to webowa aplikacja React do wybierania restauracji ze znajomymi. Użytkownik może utworzyć pokój albo dołączyć do istniejącego, ustawić preferencje kulinarne, przeglądać restauracje w formie kart typu swipe i zobaczyć końcowy wynik dopasowania grupy. Projekt został przygotowany jako dopracowana aplikacja mobile-first z responsywnym widokiem desktopowym.
 
-Live app: https://foodmatch-75d50.web.app
+Aplikacja online: https://foodmatch-75d50.web.app
 
-Firebase project: https://console.firebase.google.com/project/foodmatch-75d50/overview
+Projekt Firebase: https://console.firebase.google.com/project/foodmatch-75d50/overview
 
-## Demo Account
+## Konto Demo
 
-Use this local demo account to see a profile with prepared data:
+Do sprawdzenia aplikacji można użyć lokalnego konta testowego z przygotowanymi danymi:
 
 ```txt
 Email: test@test.com
-Password: test
+Hasło: test
 ```
 
-The demo profile includes saved preferences, favorite restaurants, dining history, hosted rooms, matches, and decision stats. New Firebase users start with empty profile data and their stats update while they use the app.
+Profil demo zawiera zapisane preferencje, ulubione restauracje, historię decyzji, liczbę hostowanych pokoi, dopasowania i statystyki. Nowi użytkownicy Firebase zaczynają z pustymi danymi profilu, które aktualizują się podczas korzystania z aplikacji.
 
-## Main Features
+## Główne Funkcje
 
-- Firebase Authentication with email/password and Google sign-in.
-- Demo user profile with existing favorites, history, saved preferences, hosted room count, and matches.
-- Create Room flow with generated PIN, saved preferences, distance radius controls, and joined users.
-- Join Room flow with PIN validation and nickname validation.
-- Waiting Room with PIN sharing, copy-to-clipboard, joined users, animated status ring, and ready button.
-- Tinder-like restaurant swiping with randomized restaurant order.
-- Five-card swipe round with final Match or No Match result.
-- Match and No Match result pages open the correct restaurant detail page.
-- Favorites page with search, filters, and clickable restaurant cards.
-- History page with stats and clickable recent matches.
-- Profile page with editable preferences, account settings, notification settings, and dining history navigation.
-- Responsive mobile-first layout with desktop presentation.
-- Google Analytics pageview tracking.
-- Hotjar/Contentsquare integration.
-- Firebase Hosting configuration.
+- Logowanie Firebase Authentication przez email/hasło oraz Google.
+- Profil demo z gotowymi ulubionymi restauracjami, historią, preferencjami, pokojami i dopasowaniami.
+- Tworzenie pokoju z losowym PIN-em, zapisanymi preferencjami, kontrolą promienia wyszukiwania i listą dołączonych osób.
+- Dołączanie do pokoju z walidacją PIN-u i nickname.
+- Waiting Room z udostępnianiem PIN-u, kopiowaniem do schowka, animowanym statusem i przyciskiem gotowości.
+- Swipe restauracji w stylu aplikacji randkowych, z losową kolejnością kart.
+- Runda składająca się z pięciu kart i końcowy ekran Match albo No Match.
+- Ekrany Match i No Match otwierają szczegóły właściwej restauracji.
+- Strona ulubionych z wyszukiwarką, filtrami i klikalnymi kartami restauracji.
+- Strona historii ze statystykami i klikalnymi ostatnimi dopasowaniami.
+- Profil użytkownika z edycją preferencji, ustawieniami konta, powiadomieniami i przejściem do historii.
+- Responsywny układ mobile-first z klasycznym układem zakładek na większych ekranach.
+- Śledzenie pageview w Google Analytics.
+- Integracja Hotjar/Contentsquare.
+- Konfiguracja Firebase Hosting.
 
-## Tech Stack
+## Technologie
 
 - React 19
 - Vite
@@ -46,7 +46,7 @@ The demo profile includes saved preferences, favorite restaurants, dining histor
 - Hotjar Browser SDK
 - CSS Modules
 
-## Project Structure
+## Struktura Projektu
 
 ```txt
 src/
@@ -89,9 +89,9 @@ src/
     WaitingRoomPage.jsx
 ```
 
-## Environment Variables
+## Zmienne Środowiskowe
 
-Create a local `.env` file based on `.env.example`:
+Utwórz lokalny plik `.env` na podstawie `.env.example`:
 
 ```env
 VITE_FIREBASE_API_KEY=...
@@ -106,40 +106,40 @@ VITE_HOTJAR_SITE_ID=1234567
 VITE_HOTJAR_VERSION=6
 ```
 
-Firebase Authentication must have these providers enabled:
+W Firebase Authentication powinny być włączone następujące metody logowania:
 
 - Email/Password
 - Google
 
-For local development, `localhost` should be present in Firebase Authentication authorized domains.
+Dla lokalnego developmentu domena `localhost` powinna znajdować się na liście autoryzowanych domen w Firebase Authentication.
 
-## Scripts
+## Skrypty
 
-Install dependencies:
+Instalacja zależności:
 
 ```bash
 npm install
 ```
 
-Run development server:
+Uruchomienie środowiska developerskiego:
 
 ```bash
 npm run dev
 ```
 
-Build production version:
+Zbudowanie wersji produkcyjnej:
 
 ```bash
 npm run build
 ```
 
-Preview production build:
+Podgląd wersji produkcyjnej:
 
 ```bash
 npm run preview
 ```
 
-Deploy to Firebase Hosting:
+Deploy do Firebase Hosting:
 
 ```bash
 npm run build
@@ -148,52 +148,52 @@ firebase deploy
 
 ## Routing
 
-The application uses React Router. Main routes:
+Aplikacja korzysta z React Router. Główne ścieżki:
 
 ```txt
-/                 Landing page
-/auth/login       Login
-/auth/signup      Sign up
-/lobby            Host lobby / create room
-/join             Join room
-/waiting          Participant waiting room
-/swipe            Swipe restaurants
-/result           Match result
-/nomatch          No match result
-/restaurant       Restaurant details
-/favorites        User favorites
-/profile          User profile
-/history          Dining history
-*                 404 fallback
+/                 Strona startowa
+/auth/login       Logowanie
+/auth/signup      Rejestracja
+/lobby            Lobby hosta / tworzenie pokoju
+/join             Dołączanie do pokoju
+/waiting          Waiting Room uczestnika
+/swipe            Swipe restauracji
+/result           Wynik Match
+/nomatch          Wynik No Match
+/restaurant       Szczegóły restauracji
+/favorites        Ulubione użytkownika
+/profile          Profil użytkownika
+/history          Historia jedzenia
+*                 Fallback 404
 ```
 
-Protected routes:
+Chronione ścieżki:
 
 - `/favorites`
 - `/profile`
 - `/history`
 
-## Analytics
+## Analityka
 
-Google Analytics is initialized through `AnalyticsListener`. It sends a `pageview` event whenever the React Router location changes.
+Google Analytics jest inicjalizowane przez komponent `AnalyticsListener`. Komponent wysyła zdarzenie `pageview` przy każdej zmianie lokalizacji w React Router.
 
-Hotjar is initialized through `HotjarInitializer` when `VITE_HOTJAR_SITE_ID` is available.
+Hotjar jest inicjalizowany przez `HotjarInitializer`, jeśli dostępna jest zmienna `VITE_HOTJAR_SITE_ID`.
 
-## Screenshots For Submission
+## Screenshoty Do Oddania Projektu
 
-Add screenshots here before final submission:
+Przed finalnym oddaniem projektu warto dodać screenshoty:
 
-- App screens: login, join room, lobby, swipe, match/no-match, favorites, profile, history.
-- Google Analytics dashboard showing app usage.
-- Hotjar/Contentsquare dashboard showing app tracking.
-- Firebase Hosting deployment screen or deployed app URL.
+- Ekrany aplikacji: login, join room, lobby, swipe, match/no-match, favorites, profile, history.
+- Panel Google Analytics pokazujący ruch w aplikacji.
+- Panel Hotjar/Contentsquare pokazujący działające śledzenie.
+- Ekran wdrożenia Firebase Hosting albo URL działającej aplikacji.
 
-Suggested folder:
+Sugerowany folder:
 
 ```txt
 docs/screenshots/
 ```
 
-## Notes
+## Uwagi
 
-The app uses Firebase Authentication for real users. Per-user restaurant history, favorites, preferences, and stats are stored locally in `localStorage` by user id for this prototype. The structure is ready to be moved to Firestore later if cross-device persistence is needed.
+Aplikacja używa Firebase Authentication dla prawdziwych użytkowników. Historia restauracji, ulubione, preferencje i statystyki są w tym prototypie zapisywane lokalnie w `localStorage` według identyfikatora użytkownika. Struktura danych jest przygotowana tak, aby w przyszłości można było przenieść ją do Firestore, jeśli potrzebna będzie synchronizacja między urządzeniami.
