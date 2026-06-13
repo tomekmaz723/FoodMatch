@@ -177,6 +177,9 @@ Chronione ścieżki:
 
 Google Analytics jest inicjalizowane przez komponent `AnalyticsListener`. Komponent wysyła zdarzenie `pageview` przy każdej zmianie lokalizacji w React Router.
 
+<img width="1502" height="807" alt="image" src="https://github.com/user-attachments/assets/dcb4228f-3ad4-4359-87ca-7d11020a2adc" />
+
+
 Hotjar jest inicjalizowany przez `HotjarInitializer`, jeśli dostępna jest zmienna `VITE_HOTJAR_SITE_ID`.
 
 ## Screenshoty Do Oddania Projektu
