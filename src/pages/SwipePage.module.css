@@ -57,10 +57,16 @@
   touch-action: pan-y;
   user-select: none;
   will-change: transform;
+  width: min(100%, 430px);
+  align-self: center;
 }
 
 .swipeCardWrap:active {
   cursor: grabbing;
+}
+
+.swipeCardWrap :global(.card) {
+  width: 100%;
 }
 
 .swipeCardWrap::after {
@@ -165,4 +171,109 @@
 
 .activeLike svg {
   color: #1a1200;
+}
+
+@media (min-width: 768px) {
+  .page {
+    min-height: calc(100dvh - 48px);
+  }
+
+  .body {
+    width: min(100%, 520px);
+    align-self: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 0 28px 24px;
+  }
+
+  .subheader {
+    padding-top: 8px;
+    padding-bottom: 0;
+    flex-shrink: 0;
+  }
+
+  .swipeCardWrap {
+    width: min(100%, 390px, calc((100dvh - 250px) * 0.75));
+    max-width: 390px;
+  }
+
+  .actions {
+    flex-shrink: 0;
+    padding: 4px 0 0;
+  }
+
+  .reject,
+  .like {
+    width: 56px;
+    height: 56px;
+  }
+
+  .reject svg,
+  .like svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+@media (min-width: 1100px) {
+  .body {
+    width: min(100%, 560px);
+  }
+}
+
+@media (min-width: 768px) and (max-height: 760px) {
+  .body {
+    gap: 8px;
+    padding-bottom: 18px;
+  }
+
+  .swipeCardWrap {
+    width: min(100%, 340px, calc((100dvh - 220px) * 0.75));
+  }
+
+  .reject,
+  .like {
+    width: 50px;
+    height: 50px;
+  }
+
+  .swipeCardWrap::after {
+    top: 24px;
+    font-size: 1.7rem;
+    padding: 10px 20px;
+  }
+}
+
+@media (min-width: 900px) {
+  .body {
+    width: min(100%, 680px);
+    display: grid;
+    grid-template-columns: 72px minmax(260px, 390px) 72px;
+    align-items: center;
+    justify-content: center;
+    column-gap: 24px;
+    padding-bottom: 24px;
+  }
+
+  .swipeCardWrap {
+    grid-column: 2;
+    grid-row: 1;
+    width: min(100%, 390px, calc((100dvh - 220px) * 0.75));
+  }
+
+  .actions {
+    display: contents;
+  }
+
+  .reject {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: center;
+  }
+
+  .like {
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: center;
+  }
 }

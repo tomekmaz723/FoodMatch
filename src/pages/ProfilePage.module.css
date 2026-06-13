@@ -350,3 +350,38 @@
   font-size: 0.9rem;
   font-weight: 600;
 }
+
+@media (min-width: 768px) {
+  .page {
+    padding-bottom: 32px;
+  }
+
+  .heroSection {
+    min-height: 260px;
+  }
+
+  .heroBg,
+  .heroOverlay {
+    height: 260px;
+  }
+
+  .statsRow,
+  .sectionContainer {
+    padding-left: 28px;
+    padding-right: 28px;
+  }
+
+  .sectionContainer {
+    display: grid;
+    grid-template-columns: minmax(320px, 0.95fr) minmax(360px, 1.05fr);
+    align-items: start;
+  }
+
+  .sectionTitle {
+    grid-column: 1 / -1;
+  }
+
+  .logoutBtn {
+    grid-column: 1 / -1;
+  }
+}

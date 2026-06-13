@@ -169,3 +169,29 @@
   padding: 20px 4px;
   text-align: center;
 }
+
+@media (min-width: 768px) {
+  .statsRow,
+  .listContainer {
+    padding-left: 28px;
+    padding-right: 28px;
+  }
+
+  .listContainer {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-content: start;
+  }
+
+  .sectionTitle,
+  .viewMoreBtn,
+  .emptyText {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 1100px) {
+  .listContainer {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

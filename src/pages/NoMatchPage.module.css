@@ -218,3 +218,17 @@
   gap: 12px;
   margin-top: 4px;
 }
+
+@media (min-width: 768px) {
+  .body {
+    width: min(100%, 760px);
+    align-self: center;
+    padding: 24px 28px 32px;
+  }
+
+  .favCard {
+    max-width: 620px;
+    align-self: center;
+    width: 100%;
+  }
+}

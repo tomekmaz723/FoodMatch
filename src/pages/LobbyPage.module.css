@@ -340,3 +340,49 @@
     box-shadow: 0 0 0 0 rgba(50, 212, 107, 0);
   }
 }
+
+@media (min-width: 768px) {
+  .page {
+    padding: 28px;
+    display: grid;
+    grid-template-columns: minmax(320px, 1fr) minmax(360px, 1fr);
+    align-content: start;
+    gap: 24px;
+  }
+
+  .page > :first-child,
+  .banner {
+    grid-column: 1 / -1;
+  }
+
+  .preferencesCard {
+    min-height: 100%;
+  }
+
+  .statsRow {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 1100px) {
+  .page {
+    grid-template-columns: 1.1fr 1fr 0.9fr;
+  }
+
+  .banner {
+    grid-column: span 2;
+  }
+
+  .friendsSection {
+    align-self: stretch;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+  }
+
+  .statsRow {
+    grid-column: span 1;
+    flex-direction: column;
+  }
+}

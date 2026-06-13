@@ -181,3 +181,20 @@
   gap: 12px;
   margin-top: 4px;
 }
+
+@media (min-width: 768px) {
+  .body {
+    width: min(100%, 760px);
+    align-self: center;
+    padding: 24px 28px 32px;
+  }
+
+  .resultCard {
+    display: grid;
+    grid-template-columns: minmax(280px, 0.95fr) minmax(280px, 1.05fr);
+  }
+
+  .imageWrap {
+    min-height: 100%;
+  }
+}

@@ -364,3 +364,42 @@
   width: 20px;
   height: 20px;
 }
+
+@media (min-width: 768px) {
+  .page {
+    padding-bottom: 0;
+  }
+
+  .heroSection {
+    height: 420px;
+  }
+
+  .body {
+    display: grid;
+    grid-template-columns: minmax(340px, 1fr) minmax(320px, 0.8fr);
+    align-items: start;
+    padding: 28px;
+  }
+
+  .titleRow,
+  .description,
+  .tags {
+    grid-column: 1;
+  }
+
+  .mapCard {
+    grid-column: 2;
+    grid-row: 1 / span 4;
+    height: 100%;
+    min-height: 360px;
+  }
+
+  .bottomBar {
+    position: sticky;
+    left: auto;
+    bottom: 0;
+    transform: none;
+    width: 100%;
+    max-width: none;
+  }
+}

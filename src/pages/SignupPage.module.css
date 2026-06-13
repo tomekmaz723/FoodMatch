@@ -228,3 +228,21 @@
   display: block;
   opacity: 0.7;
 }
+
+@media (min-width: 768px) {
+  .page {
+    display: grid;
+    grid-template-columns: minmax(340px, 0.95fr) minmax(420px, 1.05fr);
+    min-height: inherit;
+  }
+
+  .heroSection {
+    height: auto;
+    min-height: 100%;
+  }
+
+  .body {
+    justify-content: center;
+    padding: 40px;
+  }
+}
