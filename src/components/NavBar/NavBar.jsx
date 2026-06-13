@@ -1,12 +1,23 @@
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 import styles from './NavBar.module.css';
 
 /* ── Tab icon SVGs ── */
 
-const HomeIcon = () => (
+const JoinIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z" />
-    <polyline points="9 22 9 12 15 12 15 22" />
+    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+    <circle cx="9" cy="7" r="4" />
+    <line x1="19" y1="8" x2="19" y2="14" />
+    <line x1="22" y1="11" x2="16" y2="11" />
+  </svg>
+);
+
+const CreateIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="10" />
+    <line x1="12" y1="8" x2="12" y2="16" />
+    <line x1="8" y1="12" x2="16" y2="12" />
   </svg>
 );
 
@@ -30,23 +41,32 @@ const ProfileIcon = () => (
   </svg>
 );
 
-const tabs = [
-  { id: 'home',      label: 'Home',      path: '/',          icon: <HomeIcon /> },
+const publicTabs = [
+  { id: 'new-room',  label: 'New Room',  path: '/lobby',     icon: <CreateIcon /> },
+  { id: 'join-room', label: 'Join Room', path: '/join',      icon: <JoinIcon /> },
+  { id: 'profile',   label: 'Profile',   path: '/auth/login', icon: <ProfileIcon /> },
+];
+
+const privateTabs = [
+  { id: 'new-room',  label: 'New Room',  path: '/lobby',     icon: <CreateIcon /> },
+  { id: 'join-room', label: 'Join Room', path: '/join',      icon: <JoinIcon /> },
   { id: 'history',   label: 'History',   path: '/history',   icon: <HistoryIcon /> },
   { id: 'favorites', label: 'Favorites', path: '/favorites', icon: <FavoritesIcon /> },
   { id: 'profile',   label: 'Profile',   path: '/profile',   icon: <ProfileIcon /> },
 ];
 
 /**
- * Bottom navigation bar with 4 tabs.
+ * Bottom navigation bar with 5 tabs.
  *
  * @param {string} activeTab – currently active tab id
  */
-function NavBar({ activeTab = 'home' }) {
+function NavBar({ activeTab = '' }) {
   const navigate = useNavigate();
+  const { currentUser } = useAuth();
+  const tabs = currentUser ? privateTabs : publicTabs;
 
   return (
-    <nav className={styles.nav} aria-label="Main navigation">
+    <nav className={`${styles.nav} ${!currentUser ? styles.publicNav : ''}`} aria-label="Main navigation">
       {tabs.map((tab) => {
         const isActive = tab.id === activeTab;
         const tabClass = [styles.tab, isActive && styles.active]

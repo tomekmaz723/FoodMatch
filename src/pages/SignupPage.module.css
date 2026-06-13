@@ -1,11 +1,7 @@
 .page {
-  min-height: 100dvh;
-  background: #14110d;
-  max-width: 480px;
-  margin: 0 auto;
-  width: 100%;
   display: flex;
   flex-direction: column;
+  flex: 1;
 }
 
 /* ═══════════════════════════════════
@@ -33,7 +29,7 @@
 .heroOverlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(20, 17, 13, 0.4) 0%, rgba(20, 17, 13, 0.8) 60%, #14110d 100%);
+  background: linear-gradient(to bottom, rgba(24, 20, 16, 0.4) 0%, rgba(24, 20, 16, 0.8) 60%, var(--color-bg) 100%);
   z-index: 2;
 }
 
@@ -49,15 +45,6 @@
 .logoWrap {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--color-amber);
-}
-
-.logoWrap svg {
-  width: 22px;
-  height: 22px;
 }
 
 /* Title Area */
@@ -153,6 +140,16 @@
   border-color: var(--color-amber);
 }
 
+.inputError {
+  border-color: #e05555;
+}
+
+.errorText {
+  font-size: 0.74rem;
+  color: #ff8a80;
+  line-height: 1.3;
+}
+
 .eyeIcon {
   position: absolute;
   right: 16px;
@@ -187,6 +184,11 @@
   margin-top: 10px;
 }
 
+.submitBtn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
 .submitBtn svg {
   width: 20px;
   height: 20px;
@@ -205,4 +207,42 @@
   font-weight: 700;
   cursor: pointer;
   margin-left: 4px;
+}
+
+.bottomImages {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: auto;
+  padding: 8px 12px 4px;
+  max-height: 132px;
+}
+
+.foodThumb {
+  flex: 1;
+  min-width: 0;
+  height: 96px;
+  max-width: 112px;
+  border-radius: 14px;
+  object-fit: cover;
+  display: block;
+  opacity: 0.7;
+}
+
+@media (min-width: 768px) {
+  .page {
+    display: grid;
+    grid-template-columns: minmax(340px, 0.95fr) minmax(420px, 1.05fr);
+    min-height: inherit;
+  }
+
+  .heroSection {
+    height: auto;
+    min-height: 100%;
+  }
+
+  .body {
+    justify-content: center;
+    padding: 40px;
+  }
 }

@@ -2,32 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
-}
-
-.iconWrapper {
-  width: 64px;
-  height: 64px;
-  background: var(--color-amber);
-  border-radius: var(--radius-md);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 20px rgba(245, 166, 35, 0.3);
-}
-
-.iconWrapper svg {
-  width: 36px;
-  height: 36px;
-  color: #1a1200;
-}
-
-.title {
-  font-size: 2rem;
-  font-weight: 800;
-  color: var(--color-text-primary);
-  letter-spacing: -0.02em;
-  line-height: 1.1;
+  gap: 18px;
 }
 
 .subtitle {

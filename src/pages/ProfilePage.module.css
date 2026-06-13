@@ -1,12 +1,8 @@
 .page {
-  min-height: 100dvh;
-  background: #181410;
-  max-width: 480px;
-  margin: 0 auto;
-  width: 100%;
   display: flex;
   flex-direction: column;
   padding-bottom: 80px;
+  flex: 1;
 }
 
 /* ═══════════════════════════════════
@@ -36,7 +32,7 @@
   left: 0;
   width: 100%;
   height: 220px;
-  background: linear-gradient(to bottom, rgba(24, 20, 16, 0.4) 0%, #181410 100%);
+  background: linear-gradient(to bottom, rgba(24, 20, 16, 0.4) 0%, var(--color-bg) 100%);
   z-index: 2;
 }
 
@@ -53,15 +49,6 @@
 .logoWrap {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: var(--color-amber);
-}
-
-.logoWrap svg {
-  width: 20px;
-  height: 20px;
 }
 
 .smallAvatar {
@@ -103,7 +90,7 @@
   height: 28px;
   border-radius: 50%;
   background: var(--color-amber);
-  border: 2px solid #181410;
+  border: 2px solid var(--color-bg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -140,8 +127,8 @@
 
 .statCard {
   flex: 1;
-  background: #1e1a14;
-  border: 1px solid #2e2922;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: 16px;
   display: flex;
@@ -183,8 +170,8 @@
 }
 
 .menuCard {
-  background: #1e1a14;
-  border: 1px solid #2e2922;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   overflow: hidden;
 }
@@ -202,7 +189,7 @@
 }
 
 .menuItem:not(:last-child) {
-  border-bottom: 1px solid #2e2922;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .menuIcon {
@@ -237,7 +224,7 @@
   border-radius: var(--radius-full);
   font-size: 0.75rem;
   font-weight: 600;
-  background: #2a241e;
+  background: var(--color-surface-light);
   color: #a09585;
 }
 
@@ -256,8 +243,8 @@
 /* Log out */
 .logoutBtn {
   width: 100%;
-  background: #1e1a14;
-  border: 1px solid #2e2922;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: 16px;
   display: flex;
@@ -273,4 +260,128 @@
 .logoutBtn svg {
   width: 20px;
   height: 20px;
+}
+
+.menuChevron {
+  transition: transform 0.18s ease;
+}
+
+.menuChevron.open {
+  transform: rotate(90deg);
+}
+
+.preferencesCard {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.prefGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.prefLabel {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #d4cfc7;
+}
+
+.chipRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.savePrefsBtn,
+.panelSaveBtn {
+  height: 44px;
+  border: none;
+  border-radius: var(--radius-full);
+  background: var(--color-amber);
+  color: #1a1200;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.panelContent {
+  padding: 16px 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.panelLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  color: #c0b5a5;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.panelInput {
+  width: 100%;
+  height: 42px;
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  color: #ffffff;
+  padding: 0 12px;
+}
+
+.panelInput:focus {
+  outline: none;
+  border-color: var(--color-amber);
+}
+
+.toggleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #e0d5c5;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+@media (min-width: 768px) {
+  .page {
+    padding-bottom: 32px;
+  }
+
+  .heroSection {
+    min-height: 260px;
+  }
+
+  .heroBg,
+  .heroOverlay {
+    height: 260px;
+  }
+
+  .statsRow,
+  .sectionContainer {
+    padding-left: 28px;
+    padding-right: 28px;
+  }
+
+  .sectionContainer {
+    display: grid;
+    grid-template-columns: minmax(320px, 0.95fr) minmax(360px, 1.05fr);
+    align-items: start;
+  }
+
+  .sectionTitle {
+    grid-column: 1 / -1;
+  }
+
+  .logoutBtn {
+    grid-column: 1 / -1;
+  }
 }

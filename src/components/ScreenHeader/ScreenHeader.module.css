@@ -1,0 +1,91 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 20px 0;
+}
+
+.compact {
+  padding: 18px 20px 6px;
+}
+
+.spacious {
+  padding: 16px 20px 24px;
+}
+
+.inside {
+  padding: 0;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  padding: 16px 20px;
+  background: linear-gradient(to bottom, rgba(20, 16, 12, 0.9) 0%, rgba(20, 16, 12, 0) 100%);
+}
+
+.sideSpacer,
+.right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+}
+
+.brandBtn {
+  display: inline-flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  min-width: 0;
+}
+
+.title {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  overflow: hidden;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.accent {
+  font-size: 0.9rem;
+  color: var(--color-amber);
+}
+
+.right svg {
+  width: 24px;
+  height: 24px;
+}
+
+.amber {
+  color: var(--color-amber);
+}
+
+.primary {
+  color: var(--color-text-primary);
+}
+
+.authBtn {
+  border: 1px solid rgba(245, 166, 35, 0.38);
+  border-radius: var(--radius-full);
+  background: rgba(245, 166, 35, 0.1);
+  color: var(--color-amber);
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 800;
+  height: 34px;
+  padding: 0 12px;
+  white-space: nowrap;
+}

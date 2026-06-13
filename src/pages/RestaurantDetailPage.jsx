@@ -1,26 +1,13 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Button from '../components/Button/Button';
 import NavBar from '../components/NavBar/NavBar';
+import ScreenHeader from '../components/ScreenHeader/ScreenHeader';
+import MobileLayout from '../layouts/MobileLayout';
 import styles from './RestaurantDetailPage.module.css';
 
 /* ═══════════════════════════════════
    Inline SVG icons
    ═══════════════════════════════════ */
-
-const BackArrow = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <polyline points="15 18 9 12 15 6" />
-  </svg>
-);
-
-const PeopleIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-    <circle cx="9" cy="7" r="4" />
-    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-  </svg>
-);
 
 const StarIcon = () => (
   <svg viewBox="0 0 24 24" fill="currentColor">
@@ -93,42 +80,62 @@ const CalendarIcon = () => (
   </svg>
 );
 
+const ArrowLeftIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+    <line x1="19" y1="12" x2="5" y2="12" />
+    <polyline points="12 19 5 12 12 5" />
+  </svg>
+);
+
 /**
  * RestaurantDetailPage — Detailed view of a restaurant.
  */
 function RestaurantDetailPage() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const restaurant = location.state?.restaurant;
+  const restaurantName = restaurant?.name || 'Italiano Verace';
+  const restaurantImage = restaurant?.image || '/restaurant_pasta.png';
+  const restaurantRating = restaurant?.rating || '4.8';
+  const restaurantPrice = restaurant?.price || '$$$';
+  const restaurantDescription = restaurant?.description || `Experience the soul of Naples in every bite. Our master chefs craft
+          authentic wood-fired pizzas using century-old sourdough techniques
+          and the finest imported San Marzano tomatoes. From our hand-rolled
+          pasta to our legendary tiramisu, every dish is a love letter to
+          Italian tradition.`;
+  const restaurantTags = restaurant?.tags || ['Pizza', 'Pasta', 'Fine Dining', 'Italian'];
 
   return (
-    <main className={styles.page}>
+    <MobileLayout>
+      <div className={styles.page}>
       {/* ── Header (Overlaid) ── */}
-      <header className={styles.header}>
-        <button className={styles.backBtn} aria-label="Go back" onClick={() => navigate(-1)}>
-          <BackArrow />
-        </button>
-        <h1 className={styles.headerTitle}>Room PIN: 8821</h1>
-        <span className={styles.headerRight} aria-hidden="true">
-          <PeopleIcon />
-        </span>
-      </header>
+      <ScreenHeader
+        title=""
+        backButton
+        variant="overlay"
+        rightTone="primary"
+      />
 
       {/* ── Hero Image & Badges ── */}
       <section className={styles.heroSection}>
-        <img className={styles.heroImage} src="/restaurant_pasta.png" alt="Italiano Verace" />
+        <img className={styles.heroImage} src={restaurantImage} alt={restaurantName} />
         <div className={styles.heroOverlay} aria-hidden="true" />
+        <button className={styles.backArrowBtn} type="button" aria-label="Go back" onClick={() => navigate(-1)}>
+          <ArrowLeftIcon />
+        </button>
         
         <div className={styles.heroBadges}>
           <div className={styles.badge}>
             <span className={styles.badgeIcon}><StarIcon /></span>
             <div className={styles.ratingText}>
-              <span>4.8</span>
+              <span>{restaurantRating}</span>
               <span className={styles.ratingSub}>(1.2k+)</span>
             </div>
           </div>
           
           <div className={`${styles.badge} ${styles.singleLineBadge}`}>
             <span className={styles.badgeIcon}><MoneyIcon /></span>
-            <span>$$$</span>
+            <span>{restaurantPrice}</span>
           </div>
 
           <div className={styles.badge}>
@@ -145,7 +152,7 @@ function RestaurantDetailPage() {
       <div className={styles.body}>
         {/* Title */}
         <div className={styles.titleRow}>
-          <h2 className={styles.title}>Italiano Verace</h2>
+          <h2 className={styles.title}>{restaurantName}</h2>
           <button className={styles.heartBtn} aria-label="Favorite">
             <HeartOutlineIcon />
           </button>
@@ -153,19 +160,14 @@ function RestaurantDetailPage() {
 
         {/* Description */}
         <p className={styles.description}>
-          Experience the soul of Naples in every bite. Our master chefs craft
-          authentic wood-fired pizzas using century-old sourdough techniques
-          and the finest imported San Marzano tomatoes. From our hand-rolled
-          pasta to our legendary tiramisu, every dish is a love letter to
-          Italian tradition.
+          {restaurantDescription}
         </p>
 
         {/* Tags */}
         <div className={styles.tags}>
-          <span className={styles.tag}>Pizza</span>
-          <span className={styles.tag}>Pasta</span>
-          <span className={styles.tag}>Fine Dining</span>
-          <span className={styles.tag}>Italian</span>
+          {restaurantTags.map((tag) => (
+            <span key={tag} className={styles.tag}>{tag}</span>
+          ))}
         </div>
 
         {/* Opening Hours Card */}
@@ -230,7 +232,8 @@ function RestaurantDetailPage() {
           <CalendarIcon />
         </button>
       </div>
-    </main>
+      </div>
+    </MobileLayout>
   );
 }
 

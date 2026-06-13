@@ -1,14 +1,14 @@
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import BrandLogo from '../components/BrandLogo/BrandLogo';
+import Chip from '../components/Chip/Chip';
 import NavBar from '../components/NavBar/NavBar';
+import { useAuth } from '../context/AuthContext';
+import { useUserData } from '../context/UserDataContext';
+import MobileLayout from '../layouts/MobileLayout';
 import styles from './ProfilePage.module.css';
 
 /* Icons */
-const ForkKnifeIcon = () => (
-  <svg viewBox="0 0 24 24" fill="currentColor">
-    <path d="M11 2v9a3 3 0 0 1-2 2v9H7v-9a3 3 0 0 1-2-2V2h1.5v7a1.5 1.5 0 0 0 3 0V2H11zM19 2h-1v10.5A2.5 2.5 0 0 1 15.5 15H15v7h-2v-7h-.5A2.5 2.5 0 0 1 10 12.5V2h1.5v10.5a1 1 0 0 0 1 1h.5v-10h1.5v10h.5a1 1 0 0 0 1-1V2H19z" />
-  </svg>
-);
-
 const PencilIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
     <path d="M12 20h9" />
@@ -19,15 +19,6 @@ const PencilIcon = () => (
 const ChevronRight = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <polyline points="9 18 15 12 9 6" />
-  </svg>
-);
-
-const CrossedForkKnife = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <line x1="3" y1="21" x2="21" y2="3" />
-    <path d="M3 3l6 6" />
-    <path d="M21 21l-6-6" />
-    <path d="M10.5 7.5L7.5 10.5M16.5 13.5l-3 3" />
   </svg>
 );
 
@@ -65,17 +56,83 @@ const LogoutIcon = () => (
 
 function ProfilePage() {
   const navigate = useNavigate();
+  const { currentUser, logout } = useAuth();
+  const { userData, savePreferences, updateUserData } = useUserData();
+  const displayName = userData?.displayName || currentUser?.displayName || 'FoodMatch User';
+  const username = currentUser?.email ? `@${currentUser.email.split('@')[0]}` : '@foodmatch_user';
+  const [openPanel, setOpenPanel] = useState('');
+  const [settingsDraft, setSettingsDraft] = useState({
+    displayName,
+    email: userData?.email || currentUser?.email || '',
+    password: '',
+  });
+  const [preferencesDraft, setPreferencesDraft] = useState(userData?.preferences || {
+    price: [],
+    cuisine: [],
+    dietary: [],
+    radius: 2,
+  });
+
+  const preferenceGroups = {
+    price: ['$', '$$', '$$$'],
+    cuisine: ['Italian', 'Burgers', 'Sushi', 'Mexican'],
+    dietary: ['Vegetarian', 'Vegan', 'Gluten-free', 'Halal'],
+  };
+
+  useEffect(() => {
+    setSettingsDraft({
+      displayName,
+      email: userData?.email || currentUser?.email || '',
+      password: '',
+    });
+    setPreferencesDraft(userData?.preferences || {
+      price: [],
+      cuisine: [],
+      dietary: [],
+      radius: 2,
+    });
+  }, [currentUser?.email, displayName, userData]);
+
+  const handleLogout = async () => {
+    await logout();
+    navigate('/', { replace: true });
+  };
+
+  const togglePanel = (panel) => {
+    setOpenPanel((current) => (current === panel ? '' : panel));
+  };
+
+  const togglePreference = (group, option) => {
+    setPreferencesDraft((current) => {
+      const selectedOptions = current[group] || [];
+      const isSelected = selectedOptions.includes(option);
+
+      return {
+        ...current,
+        [group]: isSelected
+          ? selectedOptions.filter((item) => item !== option)
+          : [...selectedOptions, option],
+      };
+    });
+  };
+
+  const saveAccountSettings = () => {
+    updateUserData({
+      displayName: settingsDraft.displayName.trim() || displayName,
+      email: settingsDraft.email.trim() || currentUser?.email || '',
+    });
+  };
 
   return (
-    <main className={styles.page}>
-      <section className={styles.heroSection}>
-        <img className={styles.heroBg} src="/hero_food_table.png" alt="" />
+    <MobileLayout>
+      <div className={styles.page}>
+        <section className={styles.heroSection}>
+        <img className={styles.heroBg} src="/hero_food.png" alt="" />
         <div className={styles.heroOverlay} />
 
         <header className={styles.header}>
           <div className={styles.logoWrap}>
-            <ForkKnifeIcon />
-            <span>FoodMatch</span>
+            <BrandLogo variant="compact" />
           </div>
           <img className={styles.smallAvatar} src="/avatar_alex.png" alt="Profile" />
         </header>
@@ -87,18 +144,18 @@ function ProfilePage() {
               <PencilIcon />
             </button>
           </div>
-          <h1 className={styles.name}>Alex Johnson</h1>
-          <p className={styles.username}>@alex_j_eats</p>
+          <h1 className={styles.name}>{displayName}</h1>
+          <p className={styles.username}>{username}</p>
         </div>
       </section>
 
       <div className={styles.statsRow}>
         <div className={styles.statCard}>
-          <span className={styles.statNum}>24</span>
+          <span className={styles.statNum}>{userData?.roomsHosted ?? 0}</span>
           <span className={styles.statLabel}>Rooms Hosted</span>
         </div>
         <div className={styles.statCard}>
-          <span className={styles.statNum}>142</span>
+          <span className={styles.statNum}>{userData?.totalMatches ?? 0}</span>
           <span className={styles.statLabel}>Total Matches</span>
         </div>
       </div>
@@ -106,46 +163,105 @@ function ProfilePage() {
       <div className={styles.sectionContainer}>
         <h2 className={styles.sectionTitle}>Preferences</h2>
 
-        <div className={styles.menuCard}>
-          <button className={styles.menuItem}>
-            <span className={styles.menuIcon}><CrossedForkKnife /></span>
-            <span className={styles.menuText}>Dietary Defaults</span>
-            <span className={styles.menuChevron}><ChevronRight /></span>
+        <div className={styles.preferencesCard}>
+          {Object.entries(preferenceGroups).map(([group, options]) => (
+            <div className={styles.prefGroup} key={group}>
+              <span className={styles.prefLabel}>
+                {group === 'price' ? 'Price Range' : group === 'cuisine' ? 'Cuisine Preference' : 'Dietary Preferences'}
+              </span>
+              <div className={styles.chipRow}>
+                {options.map((option) => (
+                  <Chip
+                    key={option}
+                    label={option}
+                    selected={(preferencesDraft[group] || []).includes(option)}
+                    onClick={() => togglePreference(group, option)}
+                  />
+                ))}
+              </div>
+            </div>
+          ))}
+
+          <button className={styles.savePrefsBtn} type="button" onClick={() => savePreferences(preferencesDraft)}>
+            Save Preferences
           </button>
-          <div className={styles.dietaryContent}>
-            <span className={`${styles.dietTag} ${styles.active}`}>Vegan</span>
-            <span className={styles.dietTag}>Gluten-Free</span>
-            <span className={styles.dietTag}>Spicy</span>
-            <button className={`${styles.dietTag} ${styles.add}`}>+ Add Tag</button>
-          </div>
         </div>
 
         <div className={styles.menuCard}>
-          <button className={styles.menuItem}>
+          <button className={styles.menuItem} onClick={() => togglePanel('account')}>
             <span className={styles.menuIcon}><UserSettingsIcon /></span>
             <span className={styles.menuText}>Account Settings</span>
-            <span className={styles.menuChevron}><ChevronRight /></span>
+            <span className={`${styles.menuChevron} ${openPanel === 'account' ? styles.open : ''}`}><ChevronRight /></span>
           </button>
-          <button className={styles.menuItem}>
+          {openPanel === 'account' && (
+            <div className={styles.panelContent}>
+              <label className={styles.panelLabel}>
+                Display name
+                <input
+                  className={styles.panelInput}
+                  value={settingsDraft.displayName}
+                  onChange={(event) => setSettingsDraft((current) => ({ ...current, displayName: event.target.value }))}
+                />
+              </label>
+              <label className={styles.panelLabel}>
+                Email
+                <input
+                  className={styles.panelInput}
+                  type="email"
+                  value={settingsDraft.email}
+                  onChange={(event) => setSettingsDraft((current) => ({ ...current, email: event.target.value }))}
+                />
+              </label>
+              <label className={styles.panelLabel}>
+                Password
+                <input
+                  className={styles.panelInput}
+                  type="password"
+                  placeholder="New password"
+                  value={settingsDraft.password}
+                  onChange={(event) => setSettingsDraft((current) => ({ ...current, password: event.target.value }))}
+                />
+              </label>
+              <button className={styles.panelSaveBtn} type="button" onClick={saveAccountSettings}>
+                Save Account
+              </button>
+            </div>
+          )}
+
+          <button className={styles.menuItem} onClick={() => togglePanel('notifications')}>
             <span className={styles.menuIcon}><BellIcon /></span>
             <span className={styles.menuText}>Notification Preferences</span>
-            <span className={styles.menuChevron}><ChevronRight /></span>
+            <span className={`${styles.menuChevron} ${openPanel === 'notifications' ? styles.open : ''}`}><ChevronRight /></span>
           </button>
-          <button className={styles.menuItem}>
+          {openPanel === 'notifications' && (
+            <div className={styles.panelContent}>
+              <label className={styles.toggleRow}>
+                <span>Enable notifications</span>
+                <input
+                  type="checkbox"
+                  checked={Boolean(userData?.notificationsEnabled)}
+                  onChange={(event) => updateUserData({ notificationsEnabled: event.target.checked })}
+                />
+              </label>
+            </div>
+          )}
+
+          <button className={styles.menuItem} onClick={() => navigate('/history')}>
             <span className={styles.menuIcon}><HistoryIcon /></span>
             <span className={styles.menuText}>Dining History</span>
             <span className={styles.menuChevron}><ChevronRight /></span>
           </button>
         </div>
 
-        <button className={styles.logoutBtn} onClick={() => navigate('/')}>
+        <button className={styles.logoutBtn} onClick={handleLogout}>
           <LogoutIcon />
           Log Out
         </button>
       </div>
 
+      </div>
       <NavBar activeTab="profile" />
-    </main>
+    </MobileLayout>
   );
 }
 

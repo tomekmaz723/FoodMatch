@@ -1,0 +1,86 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-amber);
+  line-height: 1;
+}
+
+.mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-amber);
+  flex-shrink: 0;
+}
+
+.mark svg,
+.mark img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.mark img {
+  object-fit: contain;
+}
+
+.wordmark {
+  display: inline-flex;
+  align-items: baseline;
+  font-weight: 900;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+.food {
+  color: #ffffff;
+}
+
+.match {
+  color: var(--color-amber);
+}
+
+.inline {
+  gap: 8px;
+}
+
+.inline .mark {
+  width: 30px;
+  height: 30px;
+}
+
+.inline .wordmark {
+  font-size: 1.34rem;
+}
+
+.compact {
+  gap: 7px;
+}
+
+.compact .mark {
+  width: 26px;
+  height: 26px;
+}
+
+.compact .wordmark {
+  font-size: 1.04rem;
+}
+
+.stacked {
+  flex-direction: column;
+  gap: 16px;
+}
+
+.stacked .mark {
+  width: 116px;
+  height: 116px;
+}
+
+.stacked .wordmark {
+  font-size: 2.9rem;
+}
+
+.markOnly .mark {
+  width: 86px;
+  height: 86px;
+}

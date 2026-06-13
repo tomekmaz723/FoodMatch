@@ -1,25 +1,95 @@
 .page {
-  min-height: 100dvh;
-  background: #f0ece6;
-  max-width: 480px;
-  margin: 0 auto;
-  width: 100%;
   padding: 12px 16px 32px;
   display: flex;
   flex-direction: column;
   gap: 22px;
+  flex: 1;
 }
 
 /* ═══════════════════════════════════
    Banner
    ═══════════════════════════════════ */
 .banner {
-  background: linear-gradient(to bottom, #d8d3cc 0%, #3a3632 55%, #1a1a1a 100%);
+  background:
+    linear-gradient(to bottom, rgba(18, 14, 10, 0.72) 0%, rgba(18, 14, 10, 0.88) 48%, rgba(18, 14, 10, 0.98) 100%),
+    url('/hero_food.png') center / cover;
   border-radius: var(--radius-lg);
-  padding: 52px 24px 24px;
+  padding: 30px 24px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.readyGroup {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  text-align: center;
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+
+.readyTitle {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #f5f1e8;
+}
+
+.readySubtitle {
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.pinCard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  width: 100%;
+  min-height: 92px;
+  position: relative;
+  background: #221f1f;
+  border: 1px solid #302c2c;
+  border-radius: 22px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.22);
+  padding: 22px 24px;
+  margin-bottom: 16px;
+}
+
+.pinDigits {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.pinDigit {
+  font-size: 2.25rem;
+  line-height: 1;
+  font-weight: 800;
+  color: var(--color-amber);
+}
+
+.copyBtn {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: none;
+  background: transparent;
+  color: var(--color-amber);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.copyBtn svg {
+  width: 20px;
+  height: 20px;
 }
 
 .bannerLabel {
@@ -61,13 +131,22 @@
 .onlineBadge {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 7px;
   background: #2a2a2a;
   color: #ffffff;
   font-size: 0.72rem;
   font-weight: 600;
   padding: 4px 12px;
   border-radius: var(--radius-full);
+}
+
+.onlineDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #32d46b;
+  box-shadow: 0 0 0 0 rgba(50, 212, 107, 0.55);
+  animation: onlinePulse 1.6s ease-out infinite;
 }
 
 .avatarsRow {
@@ -117,7 +196,7 @@
    Room Preferences Card
    ═══════════════════════════════════ */
 .preferencesCard {
-  background: #1e1e1e;
+  background: var(--color-surface);
   border-radius: var(--radius-lg);
   padding: 24px;
   display: flex;
@@ -174,10 +253,136 @@
   color: var(--color-text-secondary);
 }
 
+.checkbox:disabled {
+  cursor: not-allowed;
+  opacity: 0.35;
+}
+
+.disabledOption {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.disabledOption .checkboxText {
+  color: #8d857a;
+}
+
 /* ═══════════════════════════════════
    Stats Row
    ═══════════════════════════════════ */
 .statsRow {
   display: flex;
   gap: 12px;
+}
+
+.radiusControl {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #5ec6d0;
+  padding-right: 34px;
+}
+
+.radiusValue {
+  min-width: 28px;
+  text-align: right;
+}
+
+.radiusStepper {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.radiusButton {
+  width: 22px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid rgba(94, 198, 208, 0.45);
+  border-radius: 6px;
+  background: rgba(94, 198, 208, 0.12);
+  color: #5ec6d0;
+  cursor: pointer;
+}
+
+.radiusButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.35;
+}
+
+.radiusButton svg {
+  width: 14px;
+  height: 14px;
+}
+
+.radiusUnit {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #5ec6d0;
+}
+
+@keyframes onlinePulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(50, 212, 107, 0.55);
+  }
+
+  70% {
+    box-shadow: 0 0 0 8px rgba(50, 212, 107, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(50, 212, 107, 0);
+  }
+}
+
+@media (min-width: 768px) {
+  .page {
+    padding: 28px;
+    display: grid;
+    grid-template-columns: minmax(320px, 1fr) minmax(360px, 1fr);
+    align-content: start;
+    gap: 24px;
+  }
+
+  .page > :first-child,
+  .banner {
+    grid-column: 1 / -1;
+  }
+
+  .preferencesCard {
+    min-height: 100%;
+  }
+
+  .statsRow {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 1100px) {
+  .page {
+    grid-template-columns: 1.1fr 1fr 0.9fr;
+  }
+
+  .banner {
+    grid-column: span 2;
+  }
+
+  .friendsSection {
+    align-self: stretch;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+  }
+
+  .statsRow {
+    grid-column: span 1;
+    flex-direction: column;
+  }
 }

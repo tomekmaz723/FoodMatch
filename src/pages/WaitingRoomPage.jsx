@@ -1,27 +1,14 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Avatar from '../components/Avatar/Avatar';
 import NavBar from '../components/NavBar/NavBar';
 import Button from '../components/Button/Button';
+import ScreenHeader, { PeopleIcon } from '../components/ScreenHeader/ScreenHeader';
+import MobileLayout from '../layouts/MobileLayout';
 import styles from './WaitingRoomPage.module.css';
 
 /* ═══════════════════════════════════
    Inline SVG icons
    ═══════════════════════════════════ */
-
-const BackArrow = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <polyline points="15 18 9 12 15 6" />
-  </svg>
-);
-
-const PeopleIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-    <circle cx="9" cy="7" r="4" />
-    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-  </svg>
-);
 
 const CopyIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -48,7 +35,7 @@ const CrossedUtensils = () => (
 );
 
 /* ── Static data ── */
-const PIN_DIGITS = ['8', '8', '2', '1'];
+const FALLBACK_PIN = '8821';
 
 const friends = [
   { name: 'You', src: '/avatar_host.png', isHost: true, checked: true, highlight: true },
@@ -62,35 +49,39 @@ const friends = [
  */
 function WaitingRoomPage() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const roomPin = location.state?.roomPin || FALLBACK_PIN;
+  const pinDigits = roomPin.split('');
+
+  const handleCopyPin = async () => {
+    await navigator.clipboard?.writeText(roomPin);
+  };
 
   return (
-    <main className={styles.page}>
+    <MobileLayout>
+      <div className={styles.page}>
       {/* ── Top header ── */}
-      <header className={styles.header}>
-        <button className={styles.backBtn} aria-label="Go back" onClick={() => navigate(-1)}>
-          <BackArrow />
-        </button>
-        <h1 className={styles.headerTitle}>Room PIN: 8821</h1>
-        <span className={styles.headerRight} aria-hidden="true">
-          <PeopleIcon />
-        </span>
-      </header>
+      <ScreenHeader
+        title="Waiting Room"
+        backButton
+        rightIcon={<PeopleIcon />}
+        variant="compact"
+      />
 
       <div className={styles.body}>
         {/* ── Subtitle ── */}
         <div className={styles.subtitleGroup}>
-          <p className={styles.subtitleLine}>Your room is ready!</p>
           <p className={styles.subtitleLine}>Share this PIN with your group</p>
         </div>
 
         {/* ── PIN display card ── */}
         <div className={styles.pinCard}>
           <div className={styles.pinDigits}>
-            {PIN_DIGITS.map((d, i) => (
+            {pinDigits.map((d, i) => (
               <span key={i} className={styles.digit}>{d}</span>
             ))}
           </div>
-          <button className={styles.copyBtn} aria-label="Copy PIN">
+          <button className={styles.copyBtn} aria-label="Copy PIN" onClick={handleCopyPin}>
             <CopyIcon />
           </button>
         </div>
@@ -99,7 +90,10 @@ function WaitingRoomPage() {
         <section className={styles.squadSection} aria-label="Participants">
           <div className={styles.squadHeader}>
             <span className={styles.squadTitle}>Gathering the squad</span>
-            <span className={styles.joinedBadge}>3 Joined</span>
+            <span className={styles.joinedBadge}>
+              <span className={styles.onlineDot} />
+              3 Joined
+            </span>
           </div>
 
           <div className={styles.avatarsRow}>
@@ -132,6 +126,7 @@ function WaitingRoomPage() {
               <circle cx="60" cy="60" r="52" fill="none" stroke="#2e2922" strokeWidth="3" />
               {/* Amber arc (top ~180°) */}
               <circle
+                className={styles.statusRingArc}
                 cx="60" cy="60" r="52"
                 fill="none"
                 stroke="#F5A623"
@@ -159,14 +154,15 @@ function WaitingRoomPage() {
         </section>
         
         {/* Prototype button for presentation to move forward */}
-        <div style={{ marginTop: '16px' }}>
-          <Button variant="filled" onClick={() => navigate('/swipe')}>Start Swiping</Button>
+        <div className={styles.ctaWrap}>
+          <Button variant="filled" onClick={() => navigate('/swipe', { state: { roomPin } })}>Ready to swipe</Button>
         </div>
       </div>
 
       {/* ── Bottom navigation ── */}
-      <NavBar activeTab="home" />
-    </main>
+      </div>
+      <NavBar activeTab="join-room" />
+    </MobileLayout>
   );
 }
 
