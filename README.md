@@ -182,6 +182,9 @@ Google Analytics jest inicjalizowane przez komponent `AnalyticsListener`. Kompon
 
 Hotjar jest inicjalizowany przez `HotjarInitializer`, jeśli dostępna jest zmienna `VITE_HOTJAR_SITE_ID`.
 
+<img width="1607" height="581" alt="image" src="https://github.com/user-attachments/assets/6e3fcfe1-404d-4df0-af0a-57ad44c3109d" />
+
+
 
 ## Uwagi
 
